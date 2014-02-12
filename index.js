@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var fs = require('graceful-fs');
 var path = require('path');
 
 var map = require('map-stream-limit');
@@ -49,7 +49,7 @@ module.exports = function (options) {
           fs.readFile(tempFile, function (error, data) {
             var optimizedSize = fs.statSync(tempFile).size;
             var diffFileSize = filesize(originalSize - optimizedSize);
-            gutil.log(chalk.green('✔ ') + tempFile + chalk.gray(' (' + diffFileSize + ' reduced)'));
+            gutil.log(chalk.green('✔ ') + file.relative + chalk.gray(' (' + diffFileSize + ' reduced)'));
             
             file.contents = data;
             callback(null, file);
