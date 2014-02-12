@@ -16,7 +16,7 @@ it('should minify PNG images', function (callback) {
   });
 
   stream.write(new gutil.File({
-    path: __dirname + 'fixtures/test.png',
+    path: __dirname + '/fixtures/test.png',
     contents: fs.readFileSync('test/fixtures/test.png')
   }));
 });
@@ -32,7 +32,7 @@ it('should minify JPG images', function (callback) {
   });
 
   stream.write(new gutil.File({
-    path: __dirname + 'fixtures/test.jpg',
+    path: __dirname + '/fixtures/test.jpg',
     contents: fs.readFileSync('test/fixtures/test.jpg')
   }));
 });
@@ -48,7 +48,7 @@ it('should minify GIF images', function (callback) {
   });
 
   stream.write(new gutil.File({
-    path: __dirname + 'fixtures/test.gif',
+    path: __dirname + '/fixtures/test.gif',
     contents: fs.readFileSync('test/fixtures/test.gif')
   }));
 });
