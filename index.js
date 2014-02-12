@@ -3,7 +3,7 @@
 var fs = require('graceful-fs');
 var path = require('path');
 
-var map = require('map-stream-limit');
+var map = require('map-stream');
 var gutil = require('gulp-util');
 var tempWrite = require('temp-write');
 var filesize = require('filesize');
