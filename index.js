@@ -3,7 +3,7 @@
 var fs = require('fs');
 var path = require('path');
 
-var map = require('map-stream');
+var map = require('map-stream-limit');
 var gutil = require('gulp-util');
 var tempWrite = require('temp-write');
 var filesize = require('filesize');
@@ -24,7 +24,7 @@ module.exports = function (options) {
     }
     if (['.jpg', '.jpeg', '.png', '.gif'].indexOf(path.extname(file.path).toLowerCase()) === -1) {
       gutil.log('gulp-image: Skipping unsupported image ' + gutil.colors.blue(file.relative));
-      return cb(null, file);
+      return callback(null, file);
     }
     tempWrite(file.contents, path.basename(file.path), function (error, tempFile) {
       if (error) {
@@ -57,5 +57,5 @@ module.exports = function (options) {
         });
       });
     });
-  });
+  },10);
 };

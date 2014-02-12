@@ -38,7 +38,8 @@
   },
   "devDependencies": {
     "cache-file": "~0.1.4",
-    "mocha": "~1.17.1"
+    "mocha": "~1.17.1",
+    "map-stream-limit": "~1.0.2"
   },
   "keywords": [
     "compress",
