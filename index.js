@@ -14,7 +14,7 @@ var Optimizer = require('./lib/optimizer');
 module.exports = function (options) {
 
   var options = options ? options : {};
-  
+
   return map(function optimizeStream (file, callback) {
     if (file.isNull()) {
       return callback(null, file);
@@ -50,14 +50,14 @@ module.exports = function (options) {
             var original = fs.statSync(file.path).size;
             var optimized = fs.statSync(tempFile).size;
             var diff = original - optimized;
-            var diffPercent = round10(100 * (diff / original), -1);
+            var diffPercent = _round10(100 * (diff / original), -1);
             gutil.log(
               chalk.green('✔ ') + file.relative + chalk.gray(' ->') +
               chalk.gray(' before=') + chalk.yellow(filesize(original)) +
               chalk.gray(' after=') + chalk.cyan(filesize(optimized)) +
               chalk.gray(' reduced=') + chalk.green.underline(filesize(diff) + '(' + diffPercent + '%)')
             );
-            
+
             file.contents = data;
             callback(null, file);
           });
@@ -68,7 +68,7 @@ module.exports = function (options) {
 };
 
 // @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
-function round10(value, exp) {
+function _round10(value, exp) {
   // If the exp is undefined or zero...
   if (typeof exp === 'undefined' || +exp === 0) {
     return Math.round(value);
