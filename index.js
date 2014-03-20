@@ -51,14 +51,26 @@ module.exports = function (options) {
             var optimized = fs.statSync(tempFile).size;
             var diff = original - optimized;
             var diffPercent = _round10(100 * (diff / original), -1);
-            gutil.log(
-              chalk.green('✔ ') + file.relative + chalk.gray(' ->') +
-              chalk.gray(' before=') + chalk.yellow(filesize(original)) +
-              chalk.gray(' after=') + chalk.cyan(filesize(optimized)) +
-              chalk.gray(' reduced=') + chalk.green.underline(filesize(diff) + '(' + diffPercent + '%)')
-            );
 
-            file.contents = data;
+            if (diff <= 0) {
+
+              gutil.log(
+                chalk.green('- ') + file.relative + chalk.gray(' ->') +
+                chalk.gray(" Can't improve upon ") + chalk.cyan(filesize(original))
+              );
+
+            } else {
+
+              gutil.log(
+                chalk.green('✔ ') + file.relative + chalk.gray(' ->') +
+                chalk.gray(' before=') + chalk.yellow(filesize(original)) +
+                chalk.gray(' after=') + chalk.cyan(filesize(optimized)) +
+                chalk.gray(' reduced=') + chalk.green.underline(filesize(diff) + '(' + diffPercent + '%)')
+              );
+
+              file.contents = data;
+            }
+
             callback(null, file);
           });
         });
