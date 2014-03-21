@@ -1,6 +1,6 @@
 {
   "name": "gulp-image",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Optimize PNG, JPG, GIF images with gulp task.",
   "repository": {
     "type": "git",
@@ -37,7 +37,8 @@
     "temp-write": "^0.2.0",
     "graceful-fs": "^2.0.2",
     "advpng-bin": "^0.1.2",
-    "pngout-bin": "^0.1.0"
+    "pngout-bin": "^0.1.0",
+    "jpegoptim-bin": "^0.1.0"
   },
   "devDependencies": {
     "mocha": "~1.17.1"
