@@ -5,11 +5,9 @@
 Optimize PNG, JPEG, GIF images with gulp task.
 
 [![Build Status](https://travis-ci.org/1000ch/gulp-image.svg?branch=master)](https://travis-ci.org/1000ch/gulp-image)
-[![NPM version](https://badge.fury.io/js/gulp-image.png)](http://badge.fury.io/js/gulp-image)
-[![Dependency Status](https://david-dm.org/1000ch/gulp-image.png)](https://david-dm.org/1000ch/gulp-image)
-[![devDependency Status](https://david-dm.org/1000ch/gulp-image/dev-status.png)](https://david-dm.org/1000ch/gulp-image#info=devDependencies)
-
-[![NPM](https://nodei.co/npm/gulp-image.png)](https://nodei.co/npm/gulp-image/)
+[![NPM version](https://badge.fury.io/js/gulp-image.svg)](http://badge.fury.io/js/gulp-image)
+[![Dependency Status](https://david-dm.org/1000ch/gulp-image.svg)](https://david-dm.org/1000ch/gulp-image)
+[![devDependency Status](https://david-dm.org/1000ch/gulp-image/dev-status.svg)](https://david-dm.org/1000ch/gulp-image#info=devDependencies)
 
 ## Dependency
 
