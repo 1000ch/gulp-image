@@ -1,6 +1,6 @@
 {
   "name": "gulp-image",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Optimize PNG, JPG, GIF images with gulp task.",
   "repository": {
     "type": "git",
@@ -23,22 +23,21 @@
   },
   "dependencies": {
     "filesize": "^2.0.3",
-    "async": "^0.2.10",
+    "async": "^0.7.0",
     "chalk": "^0.4.0",
     "optipng-bin": "^0.3.3",
-    "jpegtran-bin": "^0.2.6",
     "gifsicle": "^0.1.5",
     "pngquant-bin": "^0.1.7",
-    "zopflipng-bin": "^0.1.7",
-    "jpeg-recompress-bin": "^0.1.1",
-    "pngcrush-bin": "^0.1.10",
+    "zopflipng-bin": "^0.1.9",
+    "jpeg-recompress-bin": "^0.1.2",
+    "pngcrush-bin": "^0.1.13",
     "map-stream": "^0.1.0",
     "gulp-util": "^2.2.14",
     "temp-write": "^0.2.0",
     "graceful-fs": "^2.0.3",
-    "advpng-bin": "^0.1.2",
-    "pngout-bin": "^0.1.0",
-    "jpegoptim-bin": "^0.1.1"
+    "advpng-bin": "^0.1.5",
+    "jpegoptim-bin": "^0.1.4",
+    "jpegtran-bin": "^0.2.6"
   },
   "devDependencies": {
     "mocha": "^1.18.2"
