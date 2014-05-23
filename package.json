@@ -1,6 +1,6 @@
 {
   "name": "gulp-image",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Optimize PNG, JPG, GIF images with gulp task.",
   "repository": {
     "type": "git",
@@ -16,20 +16,20 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha test/test.js"
+    "test": "mocha --timeout=5s --reporter=spec test/test.js"
   },
   "bugs": {
     "url": "https://github.com/1000ch/gulp-image/issues"
   },
   "dependencies": {
     "filesize": "^2.0.3",
-    "async": "^0.7.0",
+    "async": "^0.9.0",
     "chalk": "^0.4.0",
-    "optipng-bin": "^0.3.3",
+    "optipng-bin": "^0.3.8",
     "gifsicle": "^0.1.5",
-    "pngquant-bin": "^0.1.7",
+    "pngquant-bin": "^0.3.1",
     "zopflipng-bin": "^0.1.9",
-    "jpeg-recompress-bin": "^0.1.2",
+    "jpeg-recompress-bin": "^0.1.4",
     "pngcrush-bin": "^0.1.13",
     "map-stream": "^0.1.0",
     "gulp-util": "^2.2.14",
