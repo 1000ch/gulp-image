@@ -1,6 +1,6 @@
 {
   "name": "gulp-image",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Optimize PNG, JPG, GIF images with gulp task.",
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
     "chalk": "^0.4.0",
     "filesize": "^2.0.3",
     "gifsicle": "^0.1.5",
-    "graceful-fs": "^2.0.3",
+    "graceful-fs": "^3.0.0",
     "gulp-util": "^2.2.14",
     "jpeg-recompress-bin": "^0.1.4",
     "jpegoptim-bin": "^0.1.4",
