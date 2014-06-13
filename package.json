@@ -1,15 +1,15 @@
 {
   "name": "gulp-image",
-  "version": "0.3.4",
-  "description": "Optimize PNG, JPG, GIF images with gulp task.",
+  "version": "0.4.0",
+  "description": "Optimize PNG, JPG, GIF, SVG images with gulp task.",
   "repository": {
     "type": "git",
     "url": "git://github.com/1000ch/gulp-image.git"
   },
   "author": {
-    "name": "Shogo Sensui",
+    "name": "1000ch",
     "email": "shogo.sensui@gmail.com",
-    "web": "http://1000ch.net/"
+    "web": "http://github.com/1000ch"
   },
   "license": "MIT",
   "engines": {
@@ -36,6 +36,7 @@
     "optipng-bin": "^0.3.8",
     "pngcrush-bin": "^0.1.13",
     "pngquant-bin": "^0.3.1",
+    "svgo": "^0.4.4",
     "temp-write": "^0.3.0",
     "zopflipng-bin": "^0.1.9"
   },
@@ -52,6 +53,7 @@
     "jpeg",
     "png",
     "gif",
+    "svg",
     "gulpplugin"
   ]
 }
