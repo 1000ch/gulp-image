@@ -2,7 +2,7 @@
 
 ## About
 
-Optimize PNG, JPEG, GIF images with gulp task.
+Optimize PNG, JPEG, GIF, SVG images with gulp task.
 
 [![Build Status](https://travis-ci.org/1000ch/gulp-image.svg?branch=master)](https://travis-ci.org/1000ch/gulp-image)
 [![NPM version](https://badge.fury.io/js/gulp-image.svg)](http://badge.fury.io/js/gulp-image)

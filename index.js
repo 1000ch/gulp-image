@@ -22,7 +22,7 @@ module.exports = function (options) {
     if (file.isStream()) {
       return callback(new Error('gulp-image: Streaming is not supported'));
     }
-    if (['.jpg', '.jpeg', '.png', '.gif'].indexOf(path.extname(file.path).toLowerCase()) === -1) {
+    if (['.jpg', '.jpeg', '.png', '.gif', '.svg'].indexOf(path.extname(file.path).toLowerCase()) === -1) {
       gutil.log('gulp-image: Skipping unsupported image ' + gutil.colors.blue(file.relative));
       return callback(null, file);
     }

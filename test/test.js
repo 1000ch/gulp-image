@@ -53,6 +53,22 @@ it('should minify GIF images', function (callback) {
   }));
 });
 
+it('should minify SVG images', function (callback) {
+  this.timeout(false);
+
+  var stream = image();
+
+  stream.on('data', function (file) {
+    assert(file.contents.length < fs.statSync('test/fixtures/test.svg').size);
+    callback();
+  });
+
+  stream.write(new gutil.File({
+    path: __dirname + '/fixtures/test.svg',
+    contents: fs.readFileSync('test/fixtures/test.svg')
+  }));
+});
+
 it('should skip unsupported images', function (callback) {
   var stream = image();
 
