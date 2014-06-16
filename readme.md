@@ -8,6 +8,7 @@ Optimize PNG, JPEG, GIF, SVG images with gulp task.
 [![NPM version](https://badge.fury.io/js/gulp-image.svg)](http://badge.fury.io/js/gulp-image)
 [![Dependency Status](https://david-dm.org/1000ch/gulp-image.svg)](https://david-dm.org/1000ch/gulp-image)
 [![devDependency Status](https://david-dm.org/1000ch/gulp-image/dev-status.svg)](https://david-dm.org/1000ch/gulp-image#info=devDependencies)
+[![Analytics](https://ga-beacon.appspot.com/UA-49530352-2/gulp-image/readme)](https://github.com/1000ch/gulp-image)
 
 ## Dependency
 
@@ -33,7 +34,7 @@ $ npm install --save-dev gulp-image
 
 ## Usage
 
-This is `gulpfile.js` sample.
+This is an example of `gulpfile.js`.
 
 ```js
 var gulp = require('gulp');
