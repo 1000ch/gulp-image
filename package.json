@@ -22,23 +22,23 @@
     "url": "https://github.com/1000ch/gulp-image/issues"
   },
   "dependencies": {
-    "advpng-bin": "^0.1.5",
+    "advpng-bin": "^0.1.6",
     "async": "^0.9.0",
     "chalk": "^0.5.1",
     "filesize": "^2.0.3",
     "gifsicle": "^0.1.6",
     "graceful-fs": "^3.0.2",
-    "gulp-util": "^2.2.20",
-    "jpeg-recompress-bin": "^0.1.5",
+    "gulp-util": "^3.0.0",
+    "jpeg-recompress-bin": "^0.1.6",
     "jpegoptim-bin": "^0.1.4",
     "jpegtran-bin": "^0.2.7",
     "map-stream": "^0.1.0",
     "optipng-bin": "^0.3.9",
-    "pngcrush-bin": "^0.1.15",
+    "pngcrush-bin": "^0.1.16",
     "pngquant-bin": "^0.3.1",
     "svgo": "^0.4.4",
     "temp-write": "^0.3.1",
-    "zopflipng-bin": "^0.1.9"
+    "zopflipng-bin": "^0.1.11"
   },
   "devDependencies": {
     "mocha": "^1.20.1"
