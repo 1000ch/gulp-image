@@ -14,18 +14,26 @@ var Optimizer = require('./lib/optimizer');
 module.exports = function (options) {
 
   var options = options ? options : {};
+  var SUPPORTED_EXTENSION = ['.jpg', '.jpeg', '.png', '.gif', '.svg'];
 
   return map(function optimizeStream (file, callback) {
+
+    // if file is null
     if (file.isNull()) {
       return callback(null, file);
     }
+
+    // if file is stream
     if (file.isStream()) {
       return callback(new Error('gulp-image: Streaming is not supported'));
     }
-    if (['.jpg', '.jpeg', '.png', '.gif', '.svg'].indexOf(path.extname(file.path).toLowerCase()) === -1) {
+
+    // if file is unsupported image
+    if (SUPPORTED_EXTENSION.indexOf(path.extname(file.path).toLowerCase()) === -1) {
       gutil.log('gulp-image: Skipping unsupported image ' + gutil.colors.blue(file.relative));
       return callback(null, file);
     }
+
     tempWrite(file.contents, path.basename(file.path), function (error, tempFile) {
       if (error) {
         return callback(new gutil.PluginError('gulp-image', error));
