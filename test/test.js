@@ -6,60 +6,77 @@ var gutil = require('gulp-util');
 var image = require('../index');
 
 it('should minify PNG images', function (callback) {
-  this.timeout(false);
 
+  this.timeout(10000);
   var stream = image();
 
-  stream.on('data', function (file) {
-    assert(file.contents.length < fs.statSync('test/fixtures/test.png').size);
-    callback();
+  stream.once('data', function (file) {
+    var before = fs.statSync('test/fixtures/test.png').size;
+    var after = file.contents.length;
+    assert(after < before);
   });
+  
+  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path: __dirname + '/fixtures/test.png',
     contents: fs.readFileSync('test/fixtures/test.png')
   }));
+  
+  stream.end();
 });
 
 it('should minify JPG images', function (callback) {
-  this.timeout(false);
 
+  this.timeout(10000);
   var stream = image();
 
-  stream.on('data', function (file) {
-    assert(file.contents.length < fs.statSync('test/fixtures/test.jpg').size);
-    callback();
+  stream.once('data', function (file) {
+    var before = fs.statSync('test/fixtures/test.jpg').size;
+    var after = file.contents.length;
+    assert(after < before);
   });
+
+  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path: __dirname + '/fixtures/test.jpg',
     contents: fs.readFileSync('test/fixtures/test.jpg')
   }));
+
+  stream.end();
 });
 
 it('should minify GIF images', function (callback) {
-  this.timeout(false);
 
+  this.timeout(10000);
   var stream = image();
 
-  stream.on('data', function (file) {
-    assert(file.contents.length < fs.statSync('test/fixtures/test.gif').size);
-    callback();
+  stream.once('data', function (file) {
+    var before = fs.statSync('test/fixtures/test.gif').size;
+    var after = file.contents.length;
+    assert(after < before);
   });
+
+  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path: __dirname + '/fixtures/test.gif',
     contents: fs.readFileSync('test/fixtures/test.gif')
   }));
+
+  stream.end();
 });
 
 it('should minify SVG images', function (callback) {
-  this.timeout(false);
 
+  this.timeout(10000);
   var stream = image();
 
-  stream.on('data', function (file) {
-    assert(file.contents.length < fs.statSync('test/fixtures/test.svg').size);
+  stream.once('data', function (file) {
+    var before = fs.statSync('test/fixtures/test.svg').size;
+    var after = file.contents.length;
+    assert(after < before);
     callback();
   });
 
@@ -70,14 +87,17 @@ it('should minify SVG images', function (callback) {
 });
 
 it('should skip unsupported images', function (callback) {
-  var stream = image();
 
-  stream.on('data', function (file) {
+  var stream = image();
+  stream.once('data', function (file) {
     assert.strictEqual(file.contents, null);
-    callback();
   });
+
+  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path: __dirname + 'fixtures/test.bmp'
   }));
+
+  stream.end();
 });

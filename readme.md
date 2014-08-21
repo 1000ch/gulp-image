@@ -10,22 +10,6 @@ Optimize PNG, JPEG, GIF, SVG images with gulp task.
 [![devDependency Status](https://david-dm.org/1000ch/gulp-image/dev-status.svg)](https://david-dm.org/1000ch/gulp-image#info=devDependencies)
 [![Analytics](https://ga-beacon.appspot.com/UA-49530352-2/gulp-image/readme)](https://github.com/1000ch/gulp-image)
 
-## Dependency
-
-`jpeg-recompress` requires `libjpeg-turbo`, so you have to install some libraries before getting `gulp-image`.
-
-### Ubuntu
-
-```sh
-$ sudo apt-get install build-essential libjpeg-turbo8 libjpeg-turbo8-dev
-```
-
-### Mac OS X
-
-```sh
-$ brew install libjpeg libjpeg-turbo
-```
-
 ## Install
 
 ```sh
