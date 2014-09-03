@@ -16,7 +16,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha --timeout=5s --reporter=spec test/test.js"
+    "test": "mocha --timeout=50000 --reporter=spec test/test.js"
   },
   "bugs": {
     "url": "https://github.com/1000ch/gulp-image/issues"
@@ -29,7 +29,7 @@
     "gifsicle": "^1.0.0",
     "graceful-fs": "^3.0.2",
     "gulp-util": "^3.0.0",
-    "jpeg-recompress-bin": "^0.2.0",
+    "jpeg-recompress-bin": "^0.2.1",
     "jpegoptim-bin": "^0.1.6",
     "jpegtran-bin": "^1.0.0",
     "map-stream": "^0.1.0",
@@ -43,7 +43,7 @@
     "zopflipng-bin": "^0.1.12"
   },
   "devDependencies": {
-    "mocha": "^1.20.1"
+    "mocha": "^1.21.4"
   },
   "keywords": [
     "compress",
