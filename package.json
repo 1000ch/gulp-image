@@ -1,6 +1,6 @@
 {
   "name": "gulp-image",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "Optimize PNG, JPG, GIF, SVG images with gulp task.",
   "repository": {
     "type": "git",
@@ -29,18 +29,18 @@
     "gifsicle": "^1.0.0",
     "graceful-fs": "^3.0.2",
     "gulp-util": "^3.0.0",
-    "jpeg-recompress-bin": "^0.2.1",
+    "jpeg-recompress-bin": "^1.0.2",
     "jpegoptim-bin": "^0.1.6",
     "jpegtran-bin": "^1.0.0",
     "map-stream": "^0.1.0",
-    "mozjpeg": "^1.0.0",
-    "optipng-bin": "^1.0.0",
-    "pngcrush-bin": "^0.1.18",
-    "pngquant-bin": "^1.0.0",
+    "mozjpeg": "^1.0.1",
+    "optipng-bin": "^1.0.1",
+    "pngcrush-bin": "^1.0.0",
+    "pngquant-bin": "^1.0.1",
     "svgo": "^0.4.5",
     "temp-write": "^1.0.0",
     "tempfile": "^1.0.0",
-    "zopflipng-bin": "^0.1.12"
+    "zopflipng-bin": "^1.0.1"
   },
   "devDependencies": {
     "mocha": "^1.21.4"
