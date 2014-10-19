@@ -27,7 +27,7 @@
     "chalk": "^0.5.1",
     "filesize": "^2.0.3",
     "gifsicle": "^1.0.3",
-    "graceful-fs": "^3.0.2",
+    "graceful-fs": "^3.0.4",
     "gulp-util": "^3.0.1",
     "jpeg-recompress-bin": "^1.0.2",
     "jpegoptim-bin": "^1.0.0",
@@ -38,8 +38,8 @@
     "pngcrush-bin": "^1.0.0",
     "pngquant-bin": "^1.0.1",
     "svgo": "^0.4.5",
-    "temp-write": "^1.0.0",
-    "tempfile": "^1.0.0",
+    "temp-write": "^1.1.0",
+    "tempfile": "^1.1.0",
     "zopflipng-bin": "^1.0.1"
   },
   "devDependencies": {
