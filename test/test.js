@@ -10,7 +10,7 @@ it('should minify PNG images', function (callback) {
   this.timeout(10000);
   var stream = image();
 
-  stream.once('data', function (file) {
+  stream.on('data', function (file) {
     var before = fs.statSync('test/fixtures/test.png').size;
     var after = file.contents.length;
     assert(after < before);
@@ -31,7 +31,7 @@ it('should minify JPG images', function (callback) {
   this.timeout(10000);
   var stream = image();
 
-  stream.once('data', function (file) {
+  stream.on('data', function (file) {
     var before = fs.statSync('test/fixtures/test.jpg').size;
     var after = file.contents.length;
     assert(after < before);
@@ -52,7 +52,7 @@ it('should minify GIF images', function (callback) {
   this.timeout(10000);
   var stream = image();
 
-  stream.once('data', function (file) {
+  stream.on('data', function (file) {
     var before = fs.statSync('test/fixtures/test.gif').size;
     var after = file.contents.length;
     assert(after < before);
@@ -73,7 +73,7 @@ it('should minify SVG images', function (callback) {
   this.timeout(10000);
   var stream = image();
 
-  stream.once('data', function (file) {
+  stream.on('data', function (file) {
     var before = fs.statSync('test/fixtures/test.svg').size;
     var after = file.contents.length;
     assert(after < before);
@@ -89,7 +89,7 @@ it('should minify SVG images', function (callback) {
 it('should skip unsupported images', function (callback) {
 
   var stream = image();
-  stream.once('data', function (file) {
+  stream.on('data', function (file) {
     assert.strictEqual(file.contents, null);
   });
 
