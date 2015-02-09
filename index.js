@@ -9,7 +9,8 @@ var tempWrite = require('temp-write');
 var filesize = require('filesize');
 var chalk = require('chalk');
 
-var Optimizer = require('./lib/optimizer');
+var Optimizer = require('./optimizer');
+var round10 = require('./round10');
 
 module.exports = function (options) {
 
@@ -58,7 +59,7 @@ module.exports = function (options) {
             var original = fs.statSync(file.path).size;
             var optimized = fs.statSync(tempFile).size;
             var diff = original - optimized;
-            var diffPercent = _round10(100 * (diff / original), -1);
+            var diffPercent = round10(100 * (diff / original), -1);
 
             if (diff <= 0) {
 
@@ -86,23 +87,3 @@ module.exports = function (options) {
     });
   },10);
 };
-
-// @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round
-function _round10(value, exp) {
-  // If the exp is undefined or zero...
-  if (typeof exp === 'undefined' || +exp === 0) {
-    return Math.round(value);
-  }
-  value = +value;
-  exp = +exp;
-  // If the value is not a number or the exp is not an integer...
-  if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
-    return NaN;
-  }
-  // Shift
-  value = value.toString().split('e');
-  value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
-  // Shift back
-  value = value.toString().split('e');
-  return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
-}
