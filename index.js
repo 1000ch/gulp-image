@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('graceful-fs');
+var fs = require('fs');
 var path = require('path');
 
 var map = require('map-stream');
@@ -12,12 +12,12 @@ var chalk = require('chalk');
 var Optimizer = require('./optimizer');
 var round10 = require('./round10');
 
-module.exports = function (options) {
+module.exports = function(options) {
 
   var options = options ? options : {};
   var SUPPORTED_EXTENSION = ['.jpg', '.jpeg', '.png', '.gif', '.svg'];
 
-  return map(function optimizeStream (file, callback) {
+  return map(function optimizeStream(file, callback) {
 
     // if file is null
     if (file.isNull()) {
@@ -35,14 +35,16 @@ module.exports = function (options) {
       return callback(null, file);
     }
 
-    tempWrite(file.contents, path.basename(file.path), function (error, tempFile) {
+    tempWrite(file.contents, path.basename(file.path), function(error, tempFile) {
       if (error) {
         return callback(new gutil.PluginError('gulp-image', error));
       }
-      fs.stat(tempFile, function (error, stats) {
+
+      fs.stat(tempFile, function(error, stats) {
         if (error) {
           return callback(new gutil.PluginError('gulp-image', error));
         }
+
         var originalSize = stats.size;
 
         var optimizer = new Optimizer({
@@ -51,11 +53,12 @@ module.exports = function (options) {
           options: options
         });
 
-        optimizer.optimize(function (error, data) {
+        optimizer.optimize(function(error, data) {
           if (error) {
             return callback(new gutil.PluginError('gulp-image', error));
           }
-          fs.readFile(tempFile, function (error, data) {
+
+          fs.readFile(tempFile, function(error, data) {
             var original = fs.statSync(file.path).size;
             var optimized = fs.statSync(tempFile).size;
             var diff = original - optimized;
@@ -65,7 +68,7 @@ module.exports = function (options) {
 
               gutil.log(
                 chalk.green('- ') + file.relative + chalk.gray(' ->') +
-                chalk.gray(" Can't improve upon ") + chalk.cyan(filesize(original))
+                chalk.gray(' Cannot improve upon ') + chalk.cyan(filesize(original))
               );
 
             } else {
@@ -85,5 +88,5 @@ module.exports = function (options) {
         });
       });
     });
-  },10);
+  }, 10);
 };

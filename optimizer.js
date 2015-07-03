@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var path = require('path');
 var execFile = require('child_process').execFile;
@@ -12,7 +12,7 @@ function Optimizer(param) {
   this.optimizers = this.getOptimizers(this.extension);
 }
 
-Optimizer.prototype.optipng = function () {
+Optimizer.prototype.optipng = function() {
   var args = [];
   args.push('-i 1');
   args.push('-strip all');
@@ -25,12 +25,12 @@ Optimizer.prototype.optipng = function () {
 
   return {
     name: 'optipng',
-    path: require('optipng-bin').path,
+    path: require('optipng-bin'),
     args: args
   };
 };
 
-Optimizer.prototype.pngquant = function () {
+Optimizer.prototype.pngquant = function() {
   var args = [];
   args.push('--ext=.png');
   args.push('--speed=1');
@@ -40,12 +40,12 @@ Optimizer.prototype.pngquant = function () {
 
   return {
     name: 'pngquant',
-    path: require('pngquant-bin').path,
+    path: require('pngquant-bin'),
     args: args
   };
 };
 
-Optimizer.prototype.advpng = function () {
+Optimizer.prototype.advpng = function() {
   var args = [];
   args.push('--recompress');
   args.push('--shrink-extra');
@@ -58,7 +58,7 @@ Optimizer.prototype.advpng = function () {
   };
 };
 
-Optimizer.prototype.pngcrush = function () {
+Optimizer.prototype.pngcrush = function() {
   var args = [];
   args.push('-rem alla');
   args.push('-rem text');
@@ -68,12 +68,12 @@ Optimizer.prototype.pngcrush = function () {
 
   return {
     name: 'pngcrush',
-    path: require('pngcrush-bin').path,
+    path: require('pngcrush-bin'),
     args: args
   };
 };
 
-Optimizer.prototype.pngout = function () {
+Optimizer.prototype.pngout = function() {
   var args = [];
   args.push('-s0');
   args.push('-k0');
@@ -88,7 +88,7 @@ Optimizer.prototype.pngout = function () {
   };
 };
 
-Optimizer.prototype.zopflipng = function () {
+Optimizer.prototype.zopflipng = function() {
   var args = [];
   args.push('-m');
   args.push('--iterations=500');
@@ -100,12 +100,12 @@ Optimizer.prototype.zopflipng = function () {
 
   return {
     name: 'zopflipng',
-    path: require('zopflipng-bin').path,
+    path: require('zopflipng-bin'),
     args: args
   };
 };
 
-Optimizer.prototype.gifsicle = function () {
+Optimizer.prototype.gifsicle = function() {
   var args = [];
   args.push('--optimize');
   args.push('--output');
@@ -114,12 +114,12 @@ Optimizer.prototype.gifsicle = function () {
 
   return {
     name: 'gifsicle',
-    path: require('gifsicle').path,
+    path: require('gifsicle'),
     args: args
   };
 };
 
-Optimizer.prototype.jpegtran = function () {
+Optimizer.prototype.jpegtran = function() {
   var args = [];
   args.push('-optimize');
   args.push('-progressive');
@@ -128,12 +128,12 @@ Optimizer.prototype.jpegtran = function () {
 
   return {
     name: 'jpegtran',
-    path: require('jpegtran-bin').path,
+    path: require('jpegtran-bin'),
     args: args
   };
 };
 
-Optimizer.prototype.jpegRecompress = function () {
+Optimizer.prototype.jpegRecompress = function() {
   var args = [];
   args.push('--progressive');
   args.push('--strip');
@@ -145,12 +145,12 @@ Optimizer.prototype.jpegRecompress = function () {
 
   return {
     name: 'jpeg-recompress',
-    path: require('jpeg-recompress-bin').path,
+    path: require('jpeg-recompress-bin'),
     args: args
   };
 };
 
-Optimizer.prototype.jpegoptim = function () {
+Optimizer.prototype.jpegoptim = function() {
   var args = [];
   args.push('--override');
   args.push('--strip-all');
@@ -166,7 +166,7 @@ Optimizer.prototype.jpegoptim = function () {
   };
 };
 
-Optimizer.prototype.mozjpeg = function () {
+Optimizer.prototype.mozjpeg = function() {
   var args = [];
   args.push('-optimize');
   args.push('-progressive');
@@ -175,12 +175,12 @@ Optimizer.prototype.mozjpeg = function () {
 
   return {
     name: 'mozjpeg',
-    path: require('mozjpeg').path,
+    path: require('mozjpeg'),
     args: args
   };
 };
 
-Optimizer.prototype.svgo = function () {
+Optimizer.prototype.svgo = function() {
   var args = [];
   args.push(this.src);
   args.push(this.dest);
@@ -192,7 +192,7 @@ Optimizer.prototype.svgo = function () {
   };
 };
 
-Optimizer.prototype.getOptimizers = function (extension) {
+Optimizer.prototype.getOptimizers = function(extension) {
   var optimizers = [];
   extension = extension.toLowerCase();
   switch (extension) {
@@ -219,17 +219,17 @@ Optimizer.prototype.getOptimizers = function (extension) {
   return optimizers;
 };
 
-Optimizer.prototype.optimize = function (callback) {
+Optimizer.prototype.optimize = function(callback) {
 
-  var fns = this.optimizers.map(function (optimizer) {
-    return function (callback) {
-      execFile(optimizer.path, optimizer.args, function () {
+  var fns = this.optimizers.map(function(optimizer) {
+    return function(callback) {
+      execFile(optimizer.path, optimizer.args, function() {
         callback(null, optimizer.name);
       });
     };
   });
 
-  async.series(fns, function (error, result) {
+  async.series(fns, function(error, result) {
     callback(error, {});
   });
 };
