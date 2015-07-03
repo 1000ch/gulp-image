@@ -1,7 +1,7 @@
-var gulp = require('gulp');
+var gulp  = require('gulp');
 var image = require('../');
 
-gulp.task('image', function () {
+gulp.task('image', function() {
   gulp.src('./fixtures/*')
     .pipe(image())
     .pipe(gulp.dest('./dest'));

@@ -1,16 +1,15 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-
-var map = require('map-stream');
-var gutil = require('gulp-util');
+var fs        = require('fs');
+var path      = require('path');
+var map       = require('map-stream');
+var gutil     = require('gulp-util');
 var tempWrite = require('temp-write');
-var filesize = require('filesize');
-var chalk = require('chalk');
+var filesize  = require('filesize');
+var chalk     = require('chalk');
 
 var Optimizer = require('./optimizer');
-var round10 = require('./round10');
+var round10   = require('./round10');
 
 module.exports = function(options) {
 

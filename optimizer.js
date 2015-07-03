@@ -1,8 +1,8 @@
 'use strict';
 
-var path = require('path');
+var path     = require('path');
 var execFile = require('child_process').execFile;
-var async = require('async');
+var async    = require('async');
 
 function Optimizer(param) {
   this.options = param.options;
