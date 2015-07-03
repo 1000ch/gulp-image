@@ -1,6 +1,6 @@
 {
   "name": "gulp-image",
-  "version": "0.5.8",
+  "version": "1.0.0",
   "description": "Optimize PNG, JPG, GIF, SVG images with gulp task.",
   "repository": {
     "type": "git",
