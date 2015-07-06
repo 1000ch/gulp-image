@@ -10,6 +10,8 @@ Optimize PNG, JPEG, GIF, SVG images with gulp task.
 [![devDependency Status](https://david-dm.org/1000ch/gulp-image/dev-status.svg)](https://david-dm.org/1000ch/gulp-image#info=devDependencies)
 [![Analytics](https://ga-beacon.appspot.com/UA-49530352-2/gulp-image/readme)](https://github.com/1000ch/gulp-image)
 
+![](https://raw.github.com/1000ch/gulp-image/master/screenshot/terminal.png)
+
 ## Install
 
 ```sh
