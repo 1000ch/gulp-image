@@ -30,7 +30,7 @@
     "gulp-util": "^3.0.6",
     "jpeg-recompress-bin": "^3.0.1",
     "jpegoptim-bin": "^2.0.1",
-    "jpegtran-bin": "^3.0.2",
+    "jpegtran-bin": "^3.0.4",
     "map-stream": "^0.1.0",
     "mozjpeg": "^4.0.1",
     "optipng-bin": "^3.0.2",
