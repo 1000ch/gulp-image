@@ -1,7 +1,5 @@
 # [gulp-image](https://npmjs.org/package/gulp-image)
 
-## About
-
 Optimize PNG, JPEG, GIF, SVG images with gulp task.
 
 [![Build Status](https://travis-ci.org/1000ch/gulp-image.svg?branch=master)](https://travis-ci.org/1000ch/gulp-image)
