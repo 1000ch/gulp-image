@@ -34,57 +34,45 @@ module.exports = function(options) {
       return callback(null, file);
     }
 
-    tempWrite(file.contents, path.basename(file.path), function(error, tempFile) {
+    var tempFile = tempWrite.sync(file.contents, path.basename(file.path));
+
+    var optimizer = new Optimizer({
+      src: tempFile,
+      dest: tempFile,
+      options: options
+    });
+
+    optimizer.optimize(function(error, data) {
       if (error) {
         return callback(new gutil.PluginError('gulp-image', error));
       }
 
-      fs.stat(tempFile, function(error, stats) {
-        if (error) {
-          return callback(new gutil.PluginError('gulp-image', error));
+      fs.readFile(tempFile, function(error, data) {
+        var original = fs.statSync(file.path).size;
+        var optimized = fs.statSync(tempFile).size;
+        var diff = original - optimized;
+        var diffPercent = round10(100 * (diff / original), -1);
+
+        if (diff <= 0) {
+
+          gutil.log(
+            chalk.green('- ') + file.relative + chalk.gray(' ->') +
+            chalk.gray(' Cannot improve upon ') + chalk.cyan(filesize(original))
+          );
+
+        } else {
+
+          gutil.log(
+            chalk.green('✔ ') + file.relative + chalk.gray(' ->') +
+            chalk.gray(' before=') + chalk.yellow(filesize(original)) +
+            chalk.gray(' after=') + chalk.cyan(filesize(optimized)) +
+            chalk.gray(' reduced=') + chalk.green.underline(filesize(diff) + '(' + diffPercent + '%)')
+          );
+
+          file.contents = data;
         }
 
-        var originalSize = stats.size;
-
-        var optimizer = new Optimizer({
-          src: tempFile,
-          dest: tempFile,
-          options: options
-        });
-
-        optimizer.optimize(function(error, data) {
-          if (error) {
-            return callback(new gutil.PluginError('gulp-image', error));
-          }
-
-          fs.readFile(tempFile, function(error, data) {
-            var original = fs.statSync(file.path).size;
-            var optimized = fs.statSync(tempFile).size;
-            var diff = original - optimized;
-            var diffPercent = round10(100 * (diff / original), -1);
-
-            if (diff <= 0) {
-
-              gutil.log(
-                chalk.green('- ') + file.relative + chalk.gray(' ->') +
-                chalk.gray(' Cannot improve upon ') + chalk.cyan(filesize(original))
-              );
-
-            } else {
-
-              gutil.log(
-                chalk.green('✔ ') + file.relative + chalk.gray(' ->') +
-                chalk.gray(' before=') + chalk.yellow(filesize(original)) +
-                chalk.gray(' after=') + chalk.cyan(filesize(optimized)) +
-                chalk.gray(' reduced=') + chalk.green.underline(filesize(diff) + '(' + diffPercent + '%)')
-              );
-
-              file.contents = data;
-            }
-
-            callback(null, file);
-          });
-        });
+        callback(null, file);
       });
     });
   }, 10);
