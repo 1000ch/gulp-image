@@ -197,23 +197,38 @@ Optimizer.prototype.getOptimizers = function(extension) {
   extension = extension.toLowerCase();
   switch (extension) {
     case '.png':
-      optimizers.push(this.optipng());
-      optimizers.push(this.pngquant());
-      optimizers.push(this.zopflipng());
-      optimizers.push(this.pngcrush());
-      optimizers.push(this.advpng());
-      //optimizers.push(this.pngout());
+      if (this.options.pngquant) {
+        optimizers.push(this.pngquant());
+      }
+      if (this.options.optipng) {
+        optimizers.push(this.optipng());
+      }
+      if (this.options.zopflipng) {
+        optimizers.push(this.zopflipng());
+      }
+      if (this.options.advpng) {
+        optimizers.push(this.advpng());
+      }
     case '.jpg':
-      optimizers.push(this.jpegRecompress());
-      optimizers.push(this.jpegoptim());
-      //optimizers.push(this.jpegtran());
-      optimizers.push(this.mozjpeg());
+      if (this.options.jpegRecompress) {
+        optimizers.push(this.jpegRecompress());
+      }
+      if (this.options.jpegoptim) {
+        optimizers.push(this.jpegoptim());
+      }
+      if (this.options.mozjpeg) {
+        optimizers.push(this.mozjpeg());
+      }
       break;
     case '.gif':
-      optimizers.push(this.gifsicle());
+      if (this.options.gifsicle) {
+        optimizers.push(this.gifsicle());
+      }
       break;
     case '.svg':
-      optimizers.push(this.svgo());
+      if (this.options.svgo) {
+        optimizers.push(this.svgo());
+      }
       break;
   }
   return optimizers;

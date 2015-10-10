@@ -33,6 +33,28 @@ gulp.task('image', function () {
 gulp.task('default', ['image']);
 ```
 
+You can pass an object to `image()` as argument such as following:
+
+```
+gulp.task('image', function () {
+  gulp.src('./fixtures/*')
+    .pipe(image({
+      pngquant: true,
+      optipng: true,
+      zopflipng: false,
+      advpng: false,
+      jpegRecompress: false,
+      jpegoptim: true,
+      mozjpeg: true,
+      gifsicle: true,
+      svgo: true
+    }))
+    .pipe(gulp.dest('./dest'));
+});
+```
+
+Set `false` if you don't want to apply.
+
 ## License
 
 MIT: http://1000ch.mit-license.org/

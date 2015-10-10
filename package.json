@@ -32,6 +32,7 @@
     "jpegoptim-bin": "^2.0.1",
     "map-stream": "^0.1.0",
     "mozjpeg": "^4.0.1",
+    "object-assign": "^4.0.1",
     "optipng-bin": "^3.0.2",
     "pngquant-bin": "^3.0.0",
     "svgo": "^0.5.6",

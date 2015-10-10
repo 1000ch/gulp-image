@@ -7,13 +7,25 @@ var gutil     = require('gulp-util');
 var tempWrite = require('temp-write');
 var filesize  = require('filesize');
 var chalk     = require('chalk');
+var assign    = require('object-assign');
 
 var Optimizer = require('./optimizer');
 var round10   = require('./round10');
 
 module.exports = function(options) {
 
-  var options = options ? options : {};
+  var defaultOptions = {
+    pngquant: true,
+    optipng: true,
+    zopflipng: false,
+    advpng: false,
+    jpegRecompress: false,
+    jpegoptim: true,
+    mozjpeg: true,
+    gifsicle: true,
+    svgo: true
+  };
+  var options = assign({}, defaultOptions, options || {});
   var SUPPORTED_EXTENSION = ['.jpg', '.jpeg', '.png', '.gif', '.svg'];
 
   return map(function optimizeStream(file, callback) {
