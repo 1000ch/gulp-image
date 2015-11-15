@@ -161,7 +161,7 @@ Optimizer.prototype.jpegoptim = function() {
 
   return {
     name: 'jpegoptim',
-    path: require('jpegoptim-bin').path,
+    path: require('jpegoptim-bin'),
     args: args
   };
 };
