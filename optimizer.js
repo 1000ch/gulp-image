@@ -209,6 +209,7 @@ Optimizer.prototype.getOptimizers = function(extension) {
       if (this.options.advpng) {
         optimizers.push(this.advpng());
       }
+			break;
     case '.jpg':
       if (this.options.jpegRecompress) {
         optimizers.push(this.jpegRecompress());
