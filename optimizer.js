@@ -53,7 +53,7 @@ Optimizer.prototype.advpng = function() {
 
   return {
     name: 'advpng',
-    path: require('advpng-bin').path,
+    path: require('advpng-bin'),
     args: args
   };
 };
@@ -69,21 +69,6 @@ Optimizer.prototype.pngcrush = function() {
   return {
     name: 'pngcrush',
     path: require('pngcrush-bin'),
-    args: args
-  };
-};
-
-Optimizer.prototype.pngout = function() {
-  var args = [];
-  args.push('-s0');
-  args.push('-k0');
-  args.push('-f0');
-  args.push(this.dest);
-  args.push(this.dest);
-
-  return {
-    name: 'pngout',
-    path: require('pngout-bin').path,
     args: args
   };
 };
