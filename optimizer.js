@@ -165,8 +165,13 @@ Optimizer.prototype.mozjpeg = function() {
   };
 };
 
-Optimizer.prototype.svgo = function() {
+Optimizer.prototype.svgo = function(options) {
   var args = [];
+  if (options.enable)
+    args.push("--enable=" + options.enable);
+  if (options.disable)
+    args.push("--disable=" + options.disable);
+
   args.push(this.src);
   args.push(this.dest);
 
@@ -213,7 +218,7 @@ Optimizer.prototype.getOptimizers = function(extension) {
       break;
     case '.svg':
       if (this.options.svgo) {
-        optimizers.push(this.svgo());
+        optimizers.push(this.svgo(this.options.svgo));
       }
       break;
   }
@@ -224,7 +229,7 @@ Optimizer.prototype.optimize = function(callback) {
 
   var fns = this.optimizers.map(function(optimizer) {
     return function(callback) {
-      execFile(optimizer.path, optimizer.args, function() {
+      execFile(optimizer.path, optimizer.args, { cwd: path.resolve(__dirname) }, function() {
         callback(null, optimizer.name);
       });
     };

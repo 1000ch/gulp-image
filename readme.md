@@ -55,6 +55,18 @@ gulp.task('image', function () {
 
 Set `false` if you don't want to apply.
 
+Optionally you may pass enable and disable options to [svgo](https://github.com/svg/svgo):
+
+```
+gulp.task('image', function () {
+  gulp.src('./fixtures/*')
+    .pipe(image({
+      svgo: { enable: ["removeRasterImages"], disable: ["removeDoctype"] }
+    }))
+    .pipe(gulp.dest('./dest'));
+});
+```
+
 ## License
 
 MIT: http://1000ch.mit-license.org/
