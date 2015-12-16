@@ -167,10 +167,12 @@ Optimizer.prototype.mozjpeg = function() {
 
 Optimizer.prototype.svgo = function(options) {
   var args = [];
-  if (options.enable)
+  if (options.enable) {
     args.push("--enable=" + options.enable);
-  if (options.disable)
+  }
+  if (options.disable) {
     args.push("--disable=" + options.disable);
+  }
 
   args.push(this.src);
   args.push(this.dest);
