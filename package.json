@@ -23,9 +23,9 @@
   },
   "dependencies": {
     "advpng-bin": "^3.0.0",
-    "async": "^1.5.0",
+    "async": "^1.5.2",
     "chalk": "^1.1.1",
-    "filesize": "^3.1.4",
+    "filesize": "^3.2.1",
     "gifsicle": "^3.0.3",
     "gulp-util": "^3.0.7",
     "jpeg-recompress-bin": "^3.0.1",
@@ -34,8 +34,8 @@
     "mozjpeg": "^4.1.1",
     "object-assign": "^4.0.1",
     "optipng-bin": "^3.0.4",
-    "pngquant-bin": "^3.0.0",
-    "svgo": "^0.6.0",
+    "pngquant-bin": "^3.0.1",
+    "svgo": "^0.6.1",
     "temp-write": "^2.1.0",
     "tempfile": "^1.1.1",
     "zopflipng-bin": "^3.0.1"
@@ -43,7 +43,7 @@
   "devDependencies": {
     "espower-loader": "^1.0.0",
     "intelli-espower-loader": "^1.0.0",
-    "mocha": "^2.3.4",
+    "mocha": "^2.4.5",
     "power-assert": "^1.2.0"
   },
   "keywords": [
