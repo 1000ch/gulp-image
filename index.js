@@ -1,91 +1,81 @@
 'use strict';
 
-var fs        = require('fs');
-var path      = require('path');
-var map       = require('map-stream');
-var gutil     = require('gulp-util');
-var tempWrite = require('temp-write');
-var filesize  = require('filesize');
-var chalk     = require('chalk');
-var assign    = require('object-assign');
+const fs = require('fs');
+const path = require('path');
+const mapStream = require('map-stream');
+const gutil = require('gulp-util');
+const tempWrite = require('temp-write');
+const filesize = require('filesize');
+const chalk = require('chalk');
 
-var Optimizer = require('./optimizer');
-var round10   = require('./round10');
+const Optimizer = require('./optimizer');
+const round10 = require('./round10');
 
 module.exports = function(options) {
-
-  var defaultOptions = {
-    pngquant: true,
-    optipng: false,
-    zopflipng: true,
-    advpng: true,
-    jpegRecompress: false,
-    jpegoptim: true,
-    mozjpeg: true,
-    gifsicle: true,
-    svgo: true
+  const defaultOptions = {
+    pngquant       : true,
+    optipng        : false,
+    zopflipng      : true,
+    advpng         : true,
+    jpegRecompress : false,
+    jpegoptim      : true,
+    mozjpeg        : true,
+    gifsicle       : true,
+    svgo           : true
   };
-  var options = assign({}, defaultOptions, options || {});
-  var SUPPORTED_EXTENSION = ['.jpg', '.jpeg', '.png', '.gif', '.svg'];
 
-  return map(function optimizeStream(file, callback) {
-
-    // if file is null
+  return mapStream((file, callback) => {
     if (file.isNull()) {
       return callback(null, file);
     }
 
-    // if file is stream
     if (file.isStream()) {
       return callback(new Error('gulp-image: Streaming is not supported'));
     }
 
-    // if file is unsupported image
-    if (SUPPORTED_EXTENSION.indexOf(path.extname(file.path).toLowerCase()) === -1) {
+    let extension = path.extname(file.path).toLowerCase();
+
+    if (['.jpg', '.jpeg', '.png', '.gif', '.svg'].indexOf(extension) === -1) {
       gutil.log('gulp-image: Skipping unsupported image ' + gutil.colors.blue(file.relative));
       return callback(null, file);
     }
 
-    var tempFile = tempWrite.sync(file.contents, path.basename(file.path));
+    let tempFile = tempWrite.sync(file.contents, path.basename(file.path));
 
-    var optimizer = new Optimizer({
-      src: tempFile,
-      dest: tempFile,
-      options: options
+    let optimizer = new Optimizer({
+      src     : tempFile,
+      options : Object.assign({}, defaultOptions, options || {})
     });
 
-    optimizer.optimize(function(error, data) {
-      if (error) {
-        return callback(new gutil.PluginError('gulp-image', error));
-      }
+    optimizer
+      .optimize()
+      .then(() => {
+        fs.readFile(tempFile, function(error, data) {
+          let original = fs.statSync(file.path).size;
+          let optimized = fs.statSync(tempFile).size;
+          let diff = original - optimized;
+          let diffPercent = round10(100 * (diff / original), -1);
 
-      fs.readFile(tempFile, function(error, data) {
-        var original = fs.statSync(file.path).size;
-        var optimized = fs.statSync(tempFile).size;
-        var diff = original - optimized;
-        var diffPercent = round10(100 * (diff / original), -1);
+          if (diff <= 0) {
+            gutil.log(
+              chalk.green('- ') + file.relative + chalk.gray(' ->') +
+              chalk.gray(' Cannot improve upon ') + chalk.cyan(filesize(original))
+            );
+          } else {
+            file.contents = data;
+            gutil.log(
+              chalk.green('✔ ') + file.relative + chalk.gray(' ->') +
+              chalk.gray(' before=') + chalk.yellow(filesize(original)) +
+              chalk.gray(' after=') + chalk.cyan(filesize(optimized)) +
+              chalk.gray(' reduced=') + chalk.green.underline(filesize(diff) + '(' + diffPercent + '%)')
+            );
+          }
 
-        if (diff <= 0) {
-
-          gutil.log(
-            chalk.green('- ') + file.relative + chalk.gray(' ->') +
-            chalk.gray(' Cannot improve upon ') + chalk.cyan(filesize(original))
-          );
-
-        } else {
-
-          gutil.log(
-            chalk.green('✔ ') + file.relative + chalk.gray(' ->') +
-            chalk.gray(' before=') + chalk.yellow(filesize(original)) +
-            chalk.gray(' after=') + chalk.cyan(filesize(optimized)) +
-            chalk.gray(' reduced=') + chalk.green.underline(filesize(diff) + '(' + diffPercent + '%)')
-          );
-
-          file.contents = data;
-        }
-
-        callback(null, file);
+          callback(null, file);
+        });
+      })
+      .catch(error => {
+        callback(new gutil.PluginError('gulp-image', error));
       });
-    });
   }, 10);
 };
