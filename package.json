@@ -13,17 +13,16 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "mocha --require intelli-espower-loader --timeout=50000 --reporter=spec test/test.js"
+    "test": "mocha --require intelli-espower-loader --timeout=5000 --reporter=spec test/test.js"
   },
   "bugs": {
     "url": "https://github.com/1000ch/gulp-image/issues"
   },
   "dependencies": {
     "advpng-bin": "^3.0.0",
-    "async": "^1.5.2",
     "chalk": "^1.1.1",
     "filesize": "^3.2.1",
     "gifsicle": "^3.0.3",
@@ -32,7 +31,6 @@
     "jpegoptim-bin": "^3.0.0",
     "map-stream": "^0.1.0",
     "mozjpeg": "^4.1.1",
-    "object-assign": "^4.0.1",
     "optipng-bin": "^3.0.4",
     "pngquant-bin": "^3.0.1",
     "svgo": "^0.6.1",

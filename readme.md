@@ -20,8 +20,8 @@ $ npm install --save-dev gulp-image
 This is an example of `gulpfile.js`.
 
 ```js
-var gulp = require('gulp');
-var image = require('gulp-image');
+const gulp = require('gulp');
+const image = require('gulp-image');
 
 gulp.task('image', function () {
   gulp.src('./fixtures/*')
