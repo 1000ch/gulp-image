@@ -40,9 +40,9 @@
   },
   "devDependencies": {
     "espower-loader": "^1.0.0",
-    "intelli-espower-loader": "^1.0.0",
-    "mocha": "^2.4.5",
-    "power-assert": "^1.2.0"
+    "intelli-espower-loader": "^1.0.1",
+    "mocha": "^2.5.3",
+    "power-assert": "^1.4.1"
   },
   "keywords": [
     "compress",
