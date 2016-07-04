@@ -1,239 +1,208 @@
 'use strict';
 
 const path = require('path');
-const execFile = require('child_process').execFile;
+const execa = require('execa');
+const execBuffer = require('exec-buffer');
 
 class Optimizer {
   constructor(params) {
     this.options = params.options;
     this.src = params.src;
-    this.extension = path.extname(this.src).toLowerCase();
-    this.optimizers = [];
-
-    switch (this.extension) {
-      case '.png':
-        if (this.options.pngquant) {
-          this.optimizers.push(this.pngquant());
-        }
-        if (this.options.optipng) {
-          this.optimizers.push(this.optipng());
-        }
-        if (this.options.zopflipng) {
-          this.optimizers.push(this.zopflipng());
-        }
-        if (this.options.advpng) {
-          this.optimizers.push(this.advpng());
-        }
-        break;
-      case '.jpg':
-        if (this.options.jpegRecompress) {
-          this.optimizers.push(this.jpegRecompress());
-        }
-        if (this.options.jpegoptim) {
-          this.optimizers.push(this.jpegoptim());
-        }
-        if (this.options.mozjpeg) {
-          this.optimizers.push(this.mozjpeg());
-        }
-        break;
-      case '.gif':
-        if (this.options.gifsicle) {
-          this.optimizers.push(this.gifsicle());
-        }
-        break;
-      case '.svg':
-        if (this.options.svgo) {
-          this.optimizers.push(this.svgo(this.options.svgo));
-        }
-        break;
-    }
+    this.buffer = params.buffer;
   }
 
-  optipng() {
-    let args = [];
-    args.push('-i 1');
-    args.push('-strip all');
-    args.push('-fix');
-    args.push('-o7');
-    args.push('-force');
-    args.push('-out');
-    args.push(this.src);
-    args.push(this.src);
-
-    return {
-      name : 'optipng',
-      path : require('optipng-bin'),
-      args : args
-    };
+  optipng(buffer) {
+    return execBuffer({
+      input : buffer,
+      bin   : require('optipng-bin'),
+      args  : [
+        '-i 1',
+        '-strip all',
+        '-fix',
+        '-o7',
+        '-force',
+        '-out', execBuffer.output,
+        execBuffer.input
+      ]
+    });
   }
 
-  pngquant() {
-    let args = [];
-    args.push('--ext=.png');
-    args.push('--speed=1');
-    args.push('--force');
-    args.push('256');
-    args.push(this.src);
-
-    return {
-      name : 'pngquant',
-      path : require('pngquant-bin'),
-      args : args
-    };
+  pngquant(buffer) {
+    return execBuffer({
+      input : buffer,
+      bin   : require('pngquant-bin'),
+      args  : [
+        '--speed=1',
+        '--force',
+        '256',
+        '--output',
+        execBuffer.output,
+        execBuffer.input
+      ]
+    });
   }
 
-  advpng() {
-    let args = [];
-    args.push('--recompress');
-    args.push('--shrink-extra');
-    args.push(this.src);
-
-    return {
-      name : 'advpng',
-      path : require('advpng-bin'),
-      args : args
-    };
+  advpng(buffer) {
+    return execBuffer({
+      input : buffer,
+      bin   : require('advpng-bin'),
+      args  : [
+        '--recompress',
+        '--shrink-extra',
+        execBuffer.input,
+        execBuffer.output
+      ]
+    });
   }
 
-  pngcrush() {
-    let args = [];
-    args.push('-rem alla');
-    args.push('-rem text');
-    args.push('-brute');
-    args.push('-reduce');
-    args.push(this.src);
-
-    return {
-      name : 'pngcrush',
-      path : require('pngcrush-bin'),
-      args : args
-    };
+  pngcrush(buffer) {
+    return execBuffer({
+      input : buffer,
+      bin   : require('pngcrush-bin'),
+      args  : [
+        '-rem alla',
+        '-rem text',
+        '-brute',
+        '-reduce',
+        execBuffer.input,
+        execBuffer.output
+      ]
+    });
   }
 
-  zopflipng() {
-    let args = [];
-    args.push('-m');
-    args.push('--iterations=500');
-    args.push('--splitting=3');
-    args.push('--filters=01234mepb');
-    args.push('--lossy_8bit');
-    args.push('--lossy_transparent');
-    args.push(this.src);
-
-    return {
-      name : 'zopflipng',
-      path : require('zopflipng-bin'),
-      args : args
-    };
+  zopflipng(buffer) {
+    return execBuffer({
+      input : buffer,
+      bin   : require('zopflipng-bin'),
+      args  : [
+        '-y',
+        '-m',
+        '--iterations=500',
+        '--filters=01234mepb',
+        '--lossy_8bit',
+        '--lossy_transparent',
+        execBuffer.input,
+        execBuffer.output
+      ]
+    });
   }
 
-  gifsicle() {
-    let args = [];
-    args.push('--optimize');
-    args.push('--output');
-    args.push(this.src);
-    args.push(this.src);
-
-    return {
-      name : 'gifsicle',
-      path : require('gifsicle'),
-      args : args
-    };
+  gifsicle(buffer) {
+    return execBuffer({
+      input : buffer,
+      bin   : require('gifsicle'),
+      args  : [
+        '--optimize',
+        '--output',
+        execBuffer.output,
+        execBuffer.input
+      ]
+    });
   }
 
-  jpegtran() {
-    let args = [];
-    args.push('-optimize');
-    args.push('-progressive');
-    args.push(`-outfile ${this.src}`);
-    args.push(this.src);
-
-    return {
-      name : 'jpegtran',
-      path : require('jpegtran-bin'),
-      args : args
-    };
+  jpegtran(buffer) {
+    return execBuffer({
+      input : buffer,
+      bin   : require('jpegtran-bin'),
+      args  : [
+        '-optimize',
+        '-progressive',
+        '-outfile',
+        execBuffer.output,
+        execBuffer.input
+      ]
+    });
   }
 
-  jpegRecompress() {
-    let args = [];
-    args.push('--progressive');
-    args.push('--strip');
-    args.push('--quality medium');
-    args.push('--min 40');
-    args.push('--max 80');
-    args.push(this.src);
-    args.push(this.src);
-
-    return {
-      name : 'jpeg-recompress',
-      path : require('jpeg-recompress-bin'),
-      args : args
-    };
+  jpegRecompress(buffer) {
+    return execBuffer({
+      input : buffer,
+      bin   : require('jpeg-recompress-bin'),
+      args  : [
+        '--strip',
+        '--quality', 'medium',
+        '--min', 40,
+        '--max', 80,
+        execBuffer.input,
+        execBuffer.output
+      ]
+    });
   }
 
-  jpegoptim() {
-    let args = [];
-    args.push('--override');
-    args.push('--strip-all');
-    args.push('--strip-iptc');
-    args.push('--strip-icc');
-    args.push('--all-progressive');
-    args.push(this.src);
-
-    return {
-      name : 'jpegoptim',
-      path : require('jpegoptim-bin'),
-      args : args
-    };
+  jpegoptim(buffer) {
+    return execa(require('jpegoptim-bin'), [
+      '--strip-all',
+      '--strip-iptc',
+      '--strip-icc',
+      '--stdin',
+		  '--stdout'
+    ], {
+      input : buffer
+    });
   }
 
-  mozjpeg() {
-    let args = [];
-    args.push('-optimize');
-    args.push('-progressive');
-    args.push(this.src);
-
-    return {
-      name : 'mozjpeg',
-      path : require('mozjpeg'),
-      args : args
-    };
+  mozjpeg(buffer) {
+    return execBuffer({
+      input : buffer,
+      bin   : require('mozjpeg'),
+      args  : [
+        '-optimize',
+        '-progressive',
+        '-outfile',
+        execBuffer.output,
+        execBuffer.input
+      ]
+    });
   }
 
-  svgo(options) {
-    let args = [];
+  svgo(buffer, options) {
+    let args = [
+      '--input', execBuffer.input,
+      '--output', execBuffer.output
+    ];
+
     if (options.enable) {
       args.push(`--enable=${options.enable}`);
     }
     if (options.disable) {
       args.push(`--disable=${options.disable}`);
     }
-    args.push(this.src);
-    args.push(this.src);
 
-    return {
-      name : 'svgo',
-      path : './node_modules/svgo/bin/svgo',
-      args : args
-    };
+    return execBuffer({
+      input : buffer,
+      bin   : `${__dirname}/node_modules/svgo/bin/svgo`,
+      args  : args
+    });
   }
 
   optimize() {
-    let cwd = path.resolve(__dirname);
-    let promises = this.optimizers.map(optimizer => {
-      return new Promise((resolve, reject) => {
-        execFile(optimizer.path, optimizer.args, { cwd }, error => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(optimizer.name);
-          }
-        });
-      });
-    });
+    let promises = [];
+    let extension = path.extname(this.src).toLowerCase();
 
-    return Promise.all(promises);
+    if (extension === '.jpeg' || extension === '.jpg') {
+      return Promise.resolve(this.buffer)
+        .then(buffer => this.options.jpegRecompress ? this.jpegRecompress(buffer) : buffer)
+        .then(buffer => this.options.jpegoptim ? this.jpegoptim(buffer) : buffer)
+        .then(buffer => this.options.mozjpeg ? this.mozjpeg(buffer) : buffer)
+        .catch(error => console.error(error));
+    } else if (extension === '.png') {
+      return Promise.resolve(this.buffer)
+        .then(buffer => this.options.pngquant ? this.pngquant(buffer) : buffer)
+        .then(buffer => this.options.optipng ? this.optipng(buffer) : buffer)
+        .then(buffer => this.options.zopflipng ? this.zopflipng(buffer) : buffer)
+        .then(buffer => this.options.advpng ? this.advpng(buffer) : buffer)
+        .catch(error => console.error(error));
+    } else if (extension === '.gif') {
+      return Promise.resolve(this.buffer)
+        .then(buffer => this.options.gifsicle ? this.gifsicle(buffer) : buffer)
+        .catch(error => console.error(error));
+    } else if (extension === '.svg') {
+      return Promise.resolve(this.buffer)
+        .then(buffer => this.options.svgo ? this.svgo(buffer, this.options.svgo) : buffer)
+        .catch(error => console.error(error));
+    } else {
+      return Promise.resolve(this.buffer);
+    }
   }
 }
 

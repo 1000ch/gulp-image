@@ -5,26 +5,6 @@ const assert = require('power-assert');
 const gutil = require('gulp-util');
 const image = require('../');
 
-it('should minify PNG images', function(callback) {
-  this.timeout(5000);
-  const stream = image();
-
-  stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.png').size;
-    let after  = file.contents.length;
-    assert(after < before);
-  });
-
-  stream.on('end', callback);
-
-  stream.write(new gutil.File({
-    path     : `${__dirname}/fixtures/test.png`,
-    contents : fs.readFileSync('test/fixtures/test.png')
-  }));
-
-  stream.end();
-});
-
 it('should minify PNG images with pngquant', function(callback) {
   this.timeout(5000);
   const stream = image({
@@ -145,26 +125,6 @@ it('should not minify PNG images when related options are disabled', function(ca
   stream.write(new gutil.File({
     path     : `${__dirname}/fixtures/test.png`,
     contents : fs.readFileSync('test/fixtures/test.png')
-  }));
-
-  stream.end();
-});
-
-it('should minify JPG images', function(callback) {
-  this.timeout(5000);
-  const stream = image();
-
-  stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.jpg').size;
-    let after  = file.contents.length;
-    assert(after < before);
-  });
-
-  stream.on('end', callback);
-
-  stream.write(new gutil.File({
-    path     : `${__dirname}/fixtures/test.jpg`,
-    contents : fs.readFileSync('test/fixtures/test.jpg')
   }));
 
   stream.end();

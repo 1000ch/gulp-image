@@ -4,7 +4,6 @@ const fs = require('fs');
 const path = require('path');
 const mapStream = require('map-stream');
 const gutil = require('gulp-util');
-const tempWrite = require('temp-write');
 const filesize = require('filesize');
 const chalk = require('chalk');
 
@@ -40,39 +39,36 @@ module.exports = function(options) {
       return callback(null, file);
     }
 
-    let tempFile = tempWrite.sync(file.contents, path.basename(file.path));
-
     let optimizer = new Optimizer({
-      src     : tempFile,
+      src     : file.path,
+      buffer  : file.contents,
       options : Object.assign({}, defaultOptions, options || {})
     });
 
     optimizer
       .optimize()
-      .then(() => {
-        fs.readFile(tempFile, function(error, data) {
-          let original = fs.statSync(file.path).size;
-          let optimized = fs.statSync(tempFile).size;
-          let diff = original - optimized;
-          let diffPercent = round10(100 * (diff / original), -1);
+      .then(buffer => {
+        let original = fs.statSync(file.path).size;
+        let optimized = buffer.length;
+        let diff = original - optimized;
+        let diffPercent = round10(100 * (diff / original), -1);
 
-          if (diff <= 0) {
-            gutil.log(
-              chalk.green('- ') + file.relative + chalk.gray(' ->') +
-              chalk.gray(' Cannot improve upon ') + chalk.cyan(filesize(original))
-            );
-          } else {
-            file.contents = data;
-            gutil.log(
-              chalk.green('✔ ') + file.relative + chalk.gray(' ->') +
-              chalk.gray(' before=') + chalk.yellow(filesize(original)) +
-              chalk.gray(' after=') + chalk.cyan(filesize(optimized)) +
-              chalk.gray(' reduced=') + chalk.green.underline(filesize(diff) + '(' + diffPercent + '%)')
-            );
-          }
+        if (diff <= 0) {
+          gutil.log(
+            chalk.green('- ') + file.relative + chalk.gray(' ->') +
+            chalk.gray(' Cannot improve upon ') + chalk.cyan(filesize(original))
+          );
+        } else {
+          file.contents = buffer;
+          gutil.log(
+            chalk.green('✔ ') + file.relative + chalk.gray(' ->') +
+            chalk.gray(' before=') + chalk.yellow(filesize(original)) +
+            chalk.gray(' after=') + chalk.cyan(filesize(optimized)) +
+            chalk.gray(' reduced=') + chalk.green.underline(filesize(diff) + '(' + diffPercent + '%)')
+          );
+        }
 
-          callback(null, file);
-        });
+        callback(null, file);
       })
       .catch(error => {
         callback(new gutil.PluginError('gulp-image', error));
