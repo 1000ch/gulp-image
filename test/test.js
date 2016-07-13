@@ -10,8 +10,7 @@ it('should minify PNG images with pngquant', function(callback) {
   const stream = image({
     pngquant  : true,
     optipng   : false,
-    zopflipng : false,
-    advpng    : false
+    zopflipng : false
   });
 
   stream.on('data', file => {
@@ -35,8 +34,7 @@ it('should minify PNG images with optipng', function(callback) {
   const stream = image({
     pngquant  : false,
     optipng   : true,
-    zopflipng : false,
-    advpng    : false
+    zopflipng : false
   });
 
   stream.on('data', file => {
@@ -60,33 +58,7 @@ it('should minify PNG images with zopflipng', function(callback) {
   const stream = image({
     pngquant  : false,
     optipng   : false,
-    zopflipng : true,
-    advpng    : false
-  });
-
-  stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.png').size;
-    let after  = file.contents.length;
-    assert(after < before);
-  });
-
-  stream.on('end', callback);
-
-  stream.write(new gutil.File({
-    path     : `${__dirname}/fixtures/test.png`,
-    contents : fs.readFileSync('test/fixtures/test.png')
-  }));
-
-  stream.end();
-});
-
-it('should minify PNG images with advpng', function(callback) {
-  this.timeout(5000);
-  const stream = image({
-    pngquant  : false,
-    optipng   : false,
-    zopflipng : false,
-    advpng    : true
+    zopflipng : true
   });
 
   stream.on('data', file => {
@@ -110,8 +82,7 @@ it('should not minify PNG images when related options are disabled', function(ca
   const stream = image({
     pngquant  : false,
     optipng   : false,
-    zopflipng : false,
-    advpng    : false
+    zopflipng : false
   });
 
   stream.on('data', file => {

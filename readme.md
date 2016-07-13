@@ -41,7 +41,6 @@ gulp.task('image', function () {
       pngquant: true,
       optipng: false,
       zopflipng: true,
-      advpng: true,
       jpegRecompress: false,
       jpegoptim: true,
       mozjpeg: true,

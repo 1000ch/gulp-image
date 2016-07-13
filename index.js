@@ -30,7 +30,6 @@ module.exports = function(options) {
       pngquant       : true,
       optipng        : false,
       zopflipng      : true,
-      advpng         : true,
       jpegRecompress : false,
       jpegoptim      : true,
       mozjpeg        : true,

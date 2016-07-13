@@ -35,19 +35,6 @@ function pngquant(buffer) {
   });
 }
 
-function advpng(buffer) {
-  return execBuffer({
-    input : buffer,
-    bin   : require('advpng-bin'),
-    args  : [
-      '--recompress',
-      '--shrink-extra',
-      execBuffer.input,
-      execBuffer.output
-    ]
-  });
-}
-
 function pngcrush(buffer) {
   return execBuffer({
     input : buffer,
@@ -182,7 +169,6 @@ module.exports = function(filePath, buffer, options) {
       .then(buffer => options.pngquant ? pngquant(buffer) : buffer)
       .then(buffer => options.optipng ? optipng(buffer) : buffer)
       .then(buffer => options.zopflipng ? zopflipng(buffer) : buffer)
-      .then(buffer => options.advpng ? advpng(buffer) : buffer)
       .catch(error => console.error(error));
   } else if (extension === '.gif') {
     return Promise.resolve(buffer)
