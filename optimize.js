@@ -56,7 +56,6 @@ function zopflipng(buffer) {
     bin   : require('zopflipng-bin'),
     args  : [
       '-y',
-      '-m',
       '--lossy_8bit',
       '--lossy_transparent',
       execBuffer.input,
@@ -108,14 +107,15 @@ function jpegRecompress(buffer) {
 }
 
 function jpegoptim(buffer) {
-  return execa(require('jpegoptim-bin'), [
+  return execa.stdout(require('jpegoptim-bin'), [
     '--strip-all',
     '--strip-iptc',
     '--strip-icc',
     '--stdin',
 	  '--stdout'
   ], {
-    input : buffer
+    encoding : null,
+    input    : buffer
   });
 }
 
