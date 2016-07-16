@@ -73,20 +73,6 @@ function gifsicle(buffer) {
   });
 }
 
-function jpegtran(buffer) {
-  return execBuffer({
-    input : buffer,
-    bin   : require('jpegtran-bin'),
-    args  : [
-      '-optimize',
-      '-progressive',
-      '-outfile',
-      execBuffer.output,
-      execBuffer.input
-    ]
-  });
-}
-
 function jpegRecompress(buffer) {
   return execBuffer({
     input : buffer,
