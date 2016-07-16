@@ -11,7 +11,7 @@ Optimize PNG, JPEG, GIF, SVG images with gulp task.
 
 ## Install
 
-```sh
+```bash
 $ npm install --save-dev gulp-image
 ```
 
@@ -19,7 +19,7 @@ $ npm install --save-dev gulp-image
 
 This is an example of `gulpfile.js`.
 
-```js
+```javascript
 const gulp = require('gulp');
 const image = require('gulp-image');
 
@@ -34,7 +34,7 @@ gulp.task('default', ['image']);
 
 You can pass an object to `image()` as argument such as following:
 
-```
+```javascript
 gulp.task('image', function () {
   gulp.src('./fixtures/*')
     .pipe(image({
@@ -55,7 +55,7 @@ Set `false` if you don't want to apply.
 
 Optionally you may pass enable and disable options to [svgo](https://github.com/svg/svgo):
 
-```
+```javascript
 gulp.task('image', function () {
   gulp.src('./fixtures/*')
     .pipe(image({
