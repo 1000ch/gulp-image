@@ -33,10 +33,8 @@
     "map-stream": "^0.1.0",
     "mozjpeg": "^4.1.1",
     "optipng-bin": "^3.1.2",
-    "pify": "^2.3.0",
     "pngquant-bin": "^3.1.0",
     "svgo": "^0.6.6",
-    "temp-write": "^2.1.0",
     "zopflipng-bin": "^3.0.1"
   },
   "devDependencies": {
