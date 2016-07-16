@@ -116,16 +116,12 @@ function jpegoptim(buffer) {
 }
 
 function mozjpeg(buffer) {
-  return execBuffer({
-    input : buffer,
-    bin   : require('mozjpeg'),
-    args  : [
-      '-optimize',
-      '-progressive',
-      '-outfile',
-      execBuffer.output,
-      execBuffer.input
-    ]
+  return execa.stdout(require('mozjpeg'), [
+    '-optimize',
+    '-progressive'
+  ], {
+    encoding : null,
+    input    : buffer
   });
 }
 
