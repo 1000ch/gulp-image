@@ -21,17 +21,13 @@ function optipng(buffer) {
 }
 
 function pngquant(buffer) {
-  return execBuffer({
-    input : buffer,
-    bin   : require('pngquant-bin'),
-    args  : [
-      '--speed=1',
-      '--force',
-      '256',
-      '--output',
-      execBuffer.output,
-      execBuffer.input
-    ]
+  return execa.stdout(require('pngquant-bin'), [
+    '--speed=1',
+    '--force',
+    '256'
+  ], {
+    encoding : null,
+    input    : buffer
   });
 }
 
