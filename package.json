@@ -2,10 +2,7 @@
   "name": "gulp-image",
   "version": "2.2.0",
   "description": "Optimize PNG, JPG, GIF, SVG images with gulp task.",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/1000ch/gulp-image.git"
-  },
+  "repository": "1000ch/gulp-image",
   "author": {
     "name": "1000ch",
     "email": "shogo.sensui@gmail.com",
