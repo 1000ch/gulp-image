@@ -1,6 +1,5 @@
 'use strict';
 
-const path = require('path');
 const execa = require('execa');
 const execBuffer = require('exec-buffer');
 const isPng = require('is-png');
@@ -136,27 +135,24 @@ function svgo(buffer, options) {
   });
 }
 
-module.exports = function(filePath, buffer, options) {
-  let promises = [];
-  let extension = path.extname(filePath).toLowerCase();
-
-  if ((extension === '.jpeg' || extension === '.jpg') && isJpg(buffer)) {
+module.exports = function(buffer, options) {
+  if (isJpg(buffer)) {
     return Promise.resolve(buffer)
       .then(buffer => options.jpegRecompress ? jpegRecompress(buffer) : buffer)
       .then(buffer => options.jpegoptim ? jpegoptim(buffer) : buffer)
       .then(buffer => options.mozjpeg ? mozjpeg(buffer) : buffer)
       .catch(error => console.error(error));
-  } else if (extension === '.png' && isPng(buffer)) {
+  } else if (isPng(buffer)) {
     return Promise.resolve(buffer)
       .then(buffer => options.pngquant ? pngquant(buffer) : buffer)
       .then(buffer => options.optipng ? optipng(buffer) : buffer)
       .then(buffer => options.zopflipng ? zopflipng(buffer) : buffer)
       .catch(error => console.error(error));
-  } else if (extension === '.gif' && isGif(buffer)) {
+  } else if (isGif(buffer)) {
     return Promise.resolve(buffer)
       .then(buffer => options.gifsicle ? gifsicle(buffer) : buffer)
       .catch(error => console.error(error));
-  } else if (extension === '.svg' && isSvg(buffer)) {
+  } else if (isSvg(buffer)) {
     return Promise.resolve(buffer)
       .then(buffer => options.svgo ? svgo(buffer, options.svgo) : buffer)
       .catch(error => console.error(error));

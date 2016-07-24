@@ -26,7 +26,7 @@ module.exports = function(options) {
       return callback(null, file);
     }
 
-    optimize(file.path, file.contents, Object.assign({
+    optimize(file.contents, Object.assign({
       pngquant       : true,
       optipng        : false,
       zopflipng      : true,
@@ -35,7 +35,7 @@ module.exports = function(options) {
       mozjpeg        : true,
       gifsicle       : true,
       svgo           : true
-    }, options || {})).then(buffer => {
+    }, options)).then(buffer => {
       let original = fs.statSync(file.path).size;
       let diff = original - buffer.length;
       let diffPercent = round10(100 * (diff / original), -1);
