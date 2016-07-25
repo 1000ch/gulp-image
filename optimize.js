@@ -140,22 +140,18 @@ module.exports = function(buffer, options) {
     return Promise.resolve(buffer)
       .then(buffer => options.jpegRecompress ? jpegRecompress(buffer) : buffer)
       .then(buffer => options.jpegoptim ? jpegoptim(buffer) : buffer)
-      .then(buffer => options.mozjpeg ? mozjpeg(buffer) : buffer)
-      .catch(error => console.error(error));
+      .then(buffer => options.mozjpeg ? mozjpeg(buffer) : buffer);
   } else if (isPng(buffer)) {
     return Promise.resolve(buffer)
       .then(buffer => options.pngquant ? pngquant(buffer) : buffer)
       .then(buffer => options.optipng ? optipng(buffer) : buffer)
-      .then(buffer => options.zopflipng ? zopflipng(buffer) : buffer)
-      .catch(error => console.error(error));
+      .then(buffer => options.zopflipng ? zopflipng(buffer) : buffer);
   } else if (isGif(buffer)) {
     return Promise.resolve(buffer)
-      .then(buffer => options.gifsicle ? gifsicle(buffer) : buffer)
-      .catch(error => console.error(error));
+      .then(buffer => options.gifsicle ? gifsicle(buffer) : buffer);
   } else if (isSvg(buffer)) {
     return Promise.resolve(buffer)
-      .then(buffer => options.svgo ? svgo(buffer, options.svgo) : buffer)
-      .catch(error => console.error(error));
+      .then(buffer => options.svgo ? svgo(buffer, options.svgo) : buffer);
   }
 
   return Promise.resolve(buffer);
