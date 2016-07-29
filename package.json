@@ -13,7 +13,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "mocha --require intelli-espower-loader --timeout=5000 --reporter=spec test/test.js"
+    "test": "mocha --require intelli-espower-loader --timeout=10000 --reporter=spec test/test.js"
   },
   "bugs": {
     "url": "https://github.com/1000ch/gulp-image/issues"

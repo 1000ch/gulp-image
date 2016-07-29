@@ -5,8 +5,7 @@ const assert = require('power-assert');
 const gutil = require('gulp-util');
 const image = require('../');
 
-it('should minify PNG images with pngquant', function(callback) {
-  this.timeout(5000);
+it('should minify PNG images with pngquant', callback => {
   const stream = image({
     pngquant  : true,
     optipng   : false,
@@ -29,8 +28,7 @@ it('should minify PNG images with pngquant', function(callback) {
   stream.end();
 });
 
-it('should minify PNG images with optipng', function(callback) {
-  this.timeout(5000);
+it('should minify PNG images with optipng', callback => {
   const stream = image({
     pngquant  : false,
     optipng   : true,
@@ -53,8 +51,7 @@ it('should minify PNG images with optipng', function(callback) {
   stream.end();
 });
 
-it('should minify PNG images with zopflipng', function(callback) {
-  this.timeout(5000);
+it('should minify PNG images with zopflipng', callback => {
   const stream = image({
     pngquant  : false,
     optipng   : false,
@@ -77,8 +74,7 @@ it('should minify PNG images with zopflipng', function(callback) {
   stream.end();
 });
 
-it('should not minify PNG images when related options are disabled', function(callback) {
-  this.timeout(5000);
+it('should not minify PNG images when related options are disabled', callback => {
   const stream = image({
     pngquant  : false,
     optipng   : false,
@@ -101,8 +97,7 @@ it('should not minify PNG images when related options are disabled', function(ca
   stream.end();
 });
 
-it('should minify JPG images with jpegRecompress', function(callback) {
-  this.timeout(5000);
+it('should minify JPG images with jpegRecompress', callback => {
   const stream = image({
     jpegRecompress : true,
     jpegoptim      : false,
@@ -125,8 +120,7 @@ it('should minify JPG images with jpegRecompress', function(callback) {
   stream.end();
 });
 
-it('should minify JPG images with jpegoptim', function(callback) {
-  this.timeout(5000);
+it('should minify JPG images with jpegoptim', callback => {
   const stream = image({
     jpegRecompress : false,
     jpegoptim      : true,
@@ -149,8 +143,7 @@ it('should minify JPG images with jpegoptim', function(callback) {
   stream.end();
 });
 
-it('should minify JPG images with mozjpeg', function(callback) {
-  this.timeout(5000);
+it('should minify JPG images with mozjpeg', callback => {
   const stream = image({
     jpegRecompress : false,
     jpegoptim      : false,
@@ -173,8 +166,7 @@ it('should minify JPG images with mozjpeg', function(callback) {
   stream.end();
 });
 
-it('should not minify JPG images when related options are disabled', function(callback) {
-  this.timeout(5000);
+it('should not minify JPG images when related options are disabled', callback => {
   const stream = image({
     jpegRecompress : false,
     jpegoptim      : false,
@@ -197,8 +189,7 @@ it('should not minify JPG images when related options are disabled', function(ca
   stream.end();
 });
 
-it('should minify GIF images', function(callback) {
-  this.timeout(5000);
+it('should minify GIF images', callback => {
   const stream = image();
 
   stream.on('data', file => {
@@ -217,8 +208,7 @@ it('should minify GIF images', function(callback) {
   stream.end();
 });
 
-it('should not minify GIF images when related options are disabled', function(callback) {
-  this.timeout(5000);
+it('should not minify GIF images when related options are disabled', callback => {
   const stream = image({
     gifsicle : false
   });
@@ -239,8 +229,7 @@ it('should not minify GIF images when related options are disabled', function(ca
   stream.end();
 });
 
-it('should minify SVG images', function(callback) {
-  this.timeout(5000);
+it('should minify SVG images', callback => {
   const stream = image();
 
   stream.on('data', file => {
@@ -256,8 +245,7 @@ it('should minify SVG images', function(callback) {
   }));
 });
 
-it('should not minify SVG images when related options are disabled', function(callback) {
-  this.timeout(5000);
+it('should not minify SVG images when related options are disabled', callback => {
   const stream = image({
     svgo : false
   });
@@ -275,8 +263,7 @@ it('should not minify SVG images when related options are disabled', function(ca
   }));
 });
 
-it('should skip unsupported images', function(callback) {
-  this.timeout(5000);
+it('should skip unsupported images', callback => {
   const stream = image();
 
   stream.on('data', file => {
