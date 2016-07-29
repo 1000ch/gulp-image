@@ -2,14 +2,14 @@
 
 const fs = require('fs');
 const path = require('path');
-const mapStream = require('map-stream');
+const through2 = require('through2-concurrent');
 const gutil = require('gulp-util');
 const filesize = require('filesize');
 const chalk = require('chalk');
 const optimize = require('./optimize');
 const round10 = require('./round10');
 
-module.exports = options => mapStream((file, callback) => {
+module.exports = options => through2.obj((file, enc, callback) => {
   if (file.isNull()) {
     return callback(null, file);
   }
@@ -58,4 +58,4 @@ module.exports = options => mapStream((file, callback) => {
   }).catch(error => {
     callback(new gutil.PluginError('gulp-image', error));
   });
-}, 10);
+});
