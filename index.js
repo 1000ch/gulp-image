@@ -9,7 +9,9 @@ const chalk = require('chalk');
 const optimize = require('./optimize');
 const round10 = require('./round10');
 
-module.exports = options => through2.obj((file, enc, callback) => {
+module.exports = options => through2.obj({
+  maxConcurrency: options ? options.concurrent : null
+}, (file, enc, callback) => {
   if (file.isNull()) {
     return callback(null, file);
   }

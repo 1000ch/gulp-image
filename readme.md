@@ -45,13 +45,14 @@ gulp.task('image', function () {
       jpegoptim: true,
       mozjpeg: true,
       gifsicle: true,
-      svgo: true
+      svgo: true,
+      concurrent: 10
     }))
     .pipe(gulp.dest('./dest'));
 });
 ```
 
-Set `false` if you don't want to apply.
+Set `false` for optimizers which you don't want to apply. And you can set `concurrent` option to limit the max concurrency in execution.
 
 Optionally you may pass enable and disable options to [svgo](https://github.com/svg/svgo):
 
