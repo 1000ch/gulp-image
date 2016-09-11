@@ -1,11 +1,11 @@
 'use strict';
 
+const test = require('ava');
 const fs = require('fs');
-const assert = require('power-assert');
 const gutil = require('gulp-util');
-const image = require('../');
+const image = require('..');
 
-it('should minify PNG images with pngquant', callback => {
+test('should minify PNG images with pngquant', t => {
   const stream = image({
     pngquant  : true,
     optipng   : false,
@@ -15,20 +15,18 @@ it('should minify PNG images with pngquant', callback => {
   stream.on('data', file => {
     let before = fs.statSync('test/fixtures/test.png').size;
     let after  = file.contents.length;
-    assert(after < before);
+    t.true(after < before);
   });
-
-  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path     : `${__dirname}/fixtures/test.png`,
-    contents : fs.readFileSync('test/fixtures/test.png')
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.png`)
   }));
 
   stream.end();
 });
 
-it('should minify PNG images with optipng', callback => {
+test('should minify PNG images with optipng', t => {
   const stream = image({
     pngquant  : false,
     optipng   : true,
@@ -38,20 +36,18 @@ it('should minify PNG images with optipng', callback => {
   stream.on('data', file => {
     let before = fs.statSync('test/fixtures/test.png').size;
     let after  = file.contents.length;
-    assert(after < before);
+    t.true(after < before);
   });
-
-  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path     : `${__dirname}/fixtures/test.png`,
-    contents : fs.readFileSync('test/fixtures/test.png')
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.png`)
   }));
 
   stream.end();
 });
 
-it('should minify PNG images with zopflipng', callback => {
+test('should minify PNG images with zopflipng', t => {
   const stream = image({
     pngquant  : false,
     optipng   : false,
@@ -61,20 +57,18 @@ it('should minify PNG images with zopflipng', callback => {
   stream.on('data', file => {
     let before = fs.statSync('test/fixtures/test.png').size;
     let after  = file.contents.length;
-    assert(after < before);
+    t.true(after < before);
   });
-
-  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path     : `${__dirname}/fixtures/test.png`,
-    contents : fs.readFileSync('test/fixtures/test.png')
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.png`)
   }));
 
   stream.end();
 });
 
-it('should not minify PNG images when related options are disabled', callback => {
+test('should not minify PNG images when related options are disabled', t => {
   const stream = image({
     pngquant  : false,
     optipng   : false,
@@ -84,20 +78,18 @@ it('should not minify PNG images when related options are disabled', callback =>
   stream.on('data', file => {
     let before = fs.statSync('test/fixtures/test.png').size;
     let after  = file.contents.length;
-    assert(after === before);
+    t.true(after === before);
   });
-
-  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path     : `${__dirname}/fixtures/test.png`,
-    contents : fs.readFileSync('test/fixtures/test.png')
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.png`)
   }));
 
   stream.end();
 });
 
-it('should minify JPG images with jpegRecompress', callback => {
+test('should minify JPG images with jpegRecompress', t => {
   const stream = image({
     jpegRecompress : true,
     jpegoptim      : false,
@@ -107,20 +99,18 @@ it('should minify JPG images with jpegRecompress', callback => {
   stream.on('data', file => {
     let before = fs.statSync('test/fixtures/test.jpg').size;
     let after  = file.contents.length;
-    assert(after < before);
+    t.true(after < before);
   });
-
-  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path     : `${__dirname}/fixtures/test.jpg`,
-    contents : fs.readFileSync('test/fixtures/test.jpg')
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
   }));
 
   stream.end();
 });
 
-it('should minify JPG images with jpegoptim', callback => {
+test('should minify JPG images with jpegoptim', t => {
   const stream = image({
     jpegRecompress : false,
     jpegoptim      : true,
@@ -130,20 +120,18 @@ it('should minify JPG images with jpegoptim', callback => {
   stream.on('data', file => {
     let before = fs.statSync('test/fixtures/test.jpg').size;
     let after  = file.contents.length;
-    assert(after < before);
+    t.true(after < before);
   });
-
-  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path     : `${__dirname}/fixtures/test.jpg`,
-    contents : fs.readFileSync('test/fixtures/test.jpg')
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
   }));
 
   stream.end();
 });
 
-it('should minify JPG images with mozjpeg', callback => {
+test('should minify JPG images with mozjpeg', t => {
   const stream = image({
     jpegRecompress : false,
     jpegoptim      : false,
@@ -153,20 +141,18 @@ it('should minify JPG images with mozjpeg', callback => {
   stream.on('data', file => {
     let before = fs.statSync('test/fixtures/test.jpg').size;
     let after  = file.contents.length;
-    assert(after < before);
+    t.true(after < before);
   });
-
-  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path     : `${__dirname}/fixtures/test.jpg`,
-    contents : fs.readFileSync('test/fixtures/test.jpg')
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
   }));
 
   stream.end();
 });
 
-it('should not minify JPG images when related options are disabled', callback => {
+test('should not minify JPG images when related options are disabled', t => {
   const stream = image({
     jpegRecompress : false,
     jpegoptim      : false,
@@ -176,39 +162,35 @@ it('should not minify JPG images when related options are disabled', callback =>
   stream.on('data', file => {
     let before = fs.statSync('test/fixtures/test.jpg').size;
     let after  = file.contents.length;
-    assert(after === before);
+    t.true(after === before);
   });
-
-  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path     : `${__dirname}/fixtures/test.jpg`,
-    contents : fs.readFileSync('test/fixtures/test.jpg')
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
   }));
 
   stream.end();
 });
 
-it('should minify GIF images', callback => {
+test('should minify GIF images', t => {
   const stream = image();
 
   stream.on('data', file => {
     let before = fs.statSync('test/fixtures/test.gif').size;
     let after  = file.contents.length;
-    assert(after < before);
+    t.true(after < before);
   });
-
-  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path     :  `${__dirname}/fixtures/test.gif`,
-    contents : fs.readFileSync('test/fixtures/test.gif')
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.gif`)
   }));
 
   stream.end();
 });
 
-it('should not minify GIF images when related options are disabled', callback => {
+test('should not minify GIF images when related options are disabled', t => {
   const stream = image({
     gifsicle : false
   });
@@ -216,36 +198,33 @@ it('should not minify GIF images when related options are disabled', callback =>
   stream.on('data', file => {
     let before = fs.statSync('test/fixtures/test.gif').size;
     let after  = file.contents.length;
-    assert(after === before);
+    t.true(after === before);
   });
-
-  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path     :  `${__dirname}/fixtures/test.gif`,
-    contents : fs.readFileSync('test/fixtures/test.gif')
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.gif`)
   }));
 
   stream.end();
 });
 
-it('should minify SVG images', callback => {
+test('should minify SVG images', t => {
   const stream = image();
 
   stream.on('data', file => {
     let before = fs.statSync('test/fixtures/test.svg').size;
     let after  = file.contents.length;
-    assert(after < before);
-    callback();
+    t.true(after < before);
   });
 
   stream.write(new gutil.File({
     path     : `${__dirname}/fixtures/test.svg`,
-    contents : fs.readFileSync('test/fixtures/test.svg')
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.svg`)
   }));
 });
 
-it('should not minify SVG images when related options are disabled', callback => {
+test('should not minify SVG images when related options are disabled', t => {
   const stream = image({
     svgo : false
   });
@@ -253,24 +232,21 @@ it('should not minify SVG images when related options are disabled', callback =>
   stream.on('data', file => {
     let before = fs.statSync('test/fixtures/test.svg').size;
     let after  = file.contents.length;
-    assert(after === before);
-    callback();
+    t.true(after < before);
   });
 
   stream.write(new gutil.File({
     path     : `${__dirname}/fixtures/test.svg`,
-    contents : fs.readFileSync('test/fixtures/test.svg')
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.svg`)
   }));
 });
 
-it('should skip unsupported images', callback => {
+test('should skip unsupported images', t => {
   const stream = image();
 
   stream.on('data', file => {
-    assert.strictEqual(file.contents, null);
+    t.is(file.contents, null);
   });
-
-  stream.on('end', callback);
 
   stream.write(new gutil.File({
     path : `${__dirname}fixtures/test.bmp`

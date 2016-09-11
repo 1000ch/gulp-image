@@ -13,7 +13,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "mocha --require intelli-espower-loader --timeout=10000 --reporter=spec test/test.js"
+    "test": "ava"
   },
   "bugs": {
     "url": "https://github.com/1000ch/gulp-image/issues"
@@ -39,10 +39,7 @@
     "zopflipng-bin": "^3.0.1"
   },
   "devDependencies": {
-    "espower-loader": "^1.0.0",
-    "intelli-espower-loader": "^1.0.1",
-    "mocha": "^3.0.0",
-    "power-assert": "^1.4.1"
+    "ava": "^0.16.0"
   },
   "keywords": [
     "compress",
