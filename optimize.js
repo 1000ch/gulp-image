@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const execa = require('execa');
 const execBuffer = require('exec-buffer');
 const isPng = require('is-png');
@@ -130,7 +131,7 @@ function svgo(buffer, options) {
 
   return execBuffer({
     input : buffer,
-    bin   : `${__dirname}/node_modules/svgo/bin/svgo`,
+    bin   : path.join(path.dirname(require.resolve('exec-buffer')), '../svgo/bin/svgo'),
     args  : args
   });
 }
