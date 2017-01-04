@@ -37,7 +37,7 @@ module.exports = options => through2.obj({
     gifsicle       : true,
     svgo           : true
   }, options)).then(buffer => {
-    let original = fs.statSync(file.path).size;
+    let original = file._contents.length;
     let diff = original - buffer.length;
     let diffPercent = round10(100 * (diff / original), -1);
 
