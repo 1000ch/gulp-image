@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
 const through2 = require('through2-concurrent');
 const gutil = require('gulp-util');
