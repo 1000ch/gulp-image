@@ -9,6 +9,11 @@ Optimize PNG, JPEG, GIF, SVG images with gulp task.
 
 ![](https://raw.github.com/1000ch/gulp-image/master/screenshot/terminal.png)
 
+
+## External Dendencies
+* `brew install libjpeg libpng` on macOS
+* `apt-get install -y libjpeg libpng` on Ubuntu
+
 ## Install
 
 ```bash
