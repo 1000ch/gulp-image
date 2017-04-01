@@ -4,7 +4,6 @@ const path = require('path');
 const through2 = require('through2-concurrent');
 const gutil = require('gulp-util');
 const filesize = require('filesize');
-const chalk = require('chalk');
 const optimize = require('./optimize');
 const round10 = require('./round10');
 
@@ -19,7 +18,7 @@ module.exports = options => through2.obj({
     return callback(new Error('gulp-image: Streaming is not supported'));
   }
 
-  let extension = path.extname(file.path).toLowerCase();
+  const extension = path.extname(file.path).toLowerCase();
 
   if (['.jpg', '.jpeg', '.png', '.gif', '.svg'].indexOf(extension) === -1) {
     gutil.log('gulp-image: Skipping unsupported image ' + gutil.colors.blue(file.relative));
@@ -36,22 +35,24 @@ module.exports = options => through2.obj({
     gifsicle       : true,
     svgo           : true
   }, options)).then(buffer => {
-    let original = file.contents.length;
-    let diff = original - buffer.length;
-    let diffPercent = round10(100 * (diff / original), -1);
+    const before = file.contents.length;
+    const after = buffer.length;
+    const diff = before - after;
+    const diffPercent = round10(100 * (diff / before), -1);
 
     if (diff <= 0) {
       gutil.log(
-        chalk.green('- ') + file.relative + chalk.gray(' ->') +
-        chalk.gray(' Cannot improve upon ') + chalk.cyan(filesize(original))
+        gutil.colors.green('- ') + file.relative + gutil.colors.gray(' ->') +
+        gutil.colors.gray(' Cannot improve upon ') + gutil.colors.cyan(filesize(before))
       );
     } else {
       file.contents = buffer;
+
       gutil.log(
-        chalk.green('✔ ') + file.relative + chalk.gray(' ->') +
-        chalk.gray(' before=') + chalk.yellow(filesize(original)) +
-        chalk.gray(' after=') + chalk.cyan(filesize(buffer.length)) +
-        chalk.gray(' reduced=') + chalk.green.underline(filesize(diff) + '(' + diffPercent + '%)')
+        gutil.colors.green('✔ ') + file.relative + gutil.colors.gray(' ->') +
+        gutil.colors.gray(' before=') + gutil.colors.yellow(filesize(before)) +
+        gutil.colors.gray(' after=') + gutil.colors.cyan(filesize(after)) +
+        gutil.colors.gray(' reduced=') + gutil.colors.green.underline(filesize(diff) + '(' + diffPercent + '%)')
       );
     }
 

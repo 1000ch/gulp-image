@@ -13,8 +13,8 @@ test('should minify PNG images with pngquant', t => {
   });
 
   stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.png').size;
-    let after  = file.contents.length;
+    const before = fs.statSync('test/fixtures/test.png').size;
+    const after  = file.contents.length;
     t.true(after < before);
   });
 
@@ -34,8 +34,8 @@ test('should minify PNG images with optipng', t => {
   });
 
   stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.png').size;
-    let after  = file.contents.length;
+    const before = fs.statSync('test/fixtures/test.png').size;
+    const after  = file.contents.length;
     t.true(after < before);
   });
 
@@ -55,8 +55,8 @@ test('should minify PNG images with zopflipng', t => {
   });
 
   stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.png').size;
-    let after  = file.contents.length;
+    const before = fs.statSync('test/fixtures/test.png').size;
+    const after  = file.contents.length;
     t.true(after < before);
   });
 
@@ -76,8 +76,8 @@ test('should not minify PNG images when related options are disabled', t => {
   });
 
   stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.png').size;
-    let after  = file.contents.length;
+    const before = fs.statSync('test/fixtures/test.png').size;
+    const after  = file.contents.length;
     t.true(after === before);
   });
 
@@ -97,8 +97,8 @@ test('should minify JPG images with jpegRecompress', t => {
   });
 
   stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.jpg').size;
-    let after  = file.contents.length;
+    const before = fs.statSync('test/fixtures/test.jpg').size;
+    const after  = file.contents.length;
     t.true(after < before);
   });
 
@@ -118,8 +118,8 @@ test('should minify JPG images with jpegoptim', t => {
   });
 
   stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.jpg').size;
-    let after  = file.contents.length;
+    const before = fs.statSync('test/fixtures/test.jpg').size;
+    const after  = file.contents.length;
     t.true(after < before);
   });
 
@@ -139,8 +139,8 @@ test('should minify JPG images with mozjpeg', t => {
   });
 
   stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.jpg').size;
-    let after  = file.contents.length;
+    const before = fs.statSync('test/fixtures/test.jpg').size;
+    const after  = file.contents.length;
     t.true(after < before);
   });
 
@@ -160,8 +160,8 @@ test('should not minify JPG images when related options are disabled', t => {
   });
 
   stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.jpg').size;
-    let after  = file.contents.length;
+    const before = fs.statSync('test/fixtures/test.jpg').size;
+    const after  = file.contents.length;
     t.true(after === before);
   });
 
@@ -177,8 +177,8 @@ test('should minify GIF images', t => {
   const stream = image();
 
   stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.gif').size;
-    let after  = file.contents.length;
+    const before = fs.statSync('test/fixtures/test.gif').size;
+    const after  = file.contents.length;
     t.true(after < before);
   });
 
@@ -196,8 +196,8 @@ test('should not minify GIF images when related options are disabled', t => {
   });
 
   stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.gif').size;
-    let after  = file.contents.length;
+    const before = fs.statSync('test/fixtures/test.gif').size;
+    const after  = file.contents.length;
     t.true(after === before);
   });
 
@@ -213,8 +213,8 @@ test('should minify SVG images', t => {
   const stream = image();
 
   stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.svg').size;
-    let after  = file.contents.length;
+    const before = fs.statSync('test/fixtures/test.svg').size;
+    const after  = file.contents.length;
     t.true(after < before);
   });
 
@@ -230,8 +230,8 @@ test('should not minify SVG images when related options are disabled', t => {
   });
 
   stream.on('data', file => {
-    let before = fs.statSync('test/fixtures/test.svg').size;
-    let after  = file.contents.length;
+    const before = fs.statSync('test/fixtures/test.svg').size;
+    const after  = file.contents.length;
     t.true(after < before);
   });
 

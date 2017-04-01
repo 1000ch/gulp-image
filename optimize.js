@@ -8,125 +8,113 @@ const isJpg = require('is-jpg');
 const isGif = require('is-gif');
 const isSvg = require('is-svg');
 
-function optipng(buffer) {
-  return execBuffer({
-    input : buffer,
-    bin   : require('optipng-bin'),
-    args  : [
-      '-i 1',
-      '-strip all',
-      '-fix',
-      '-o7',
-      '-force',
-      '-out', execBuffer.output,
-      execBuffer.input
-    ]
-  });
-}
+const optipng = buffer => execBuffer({
+  input : buffer,
+  bin   : require('optipng-bin'),
+  args  : [
+    '-i 1',
+    '-strip all',
+    '-fix',
+    '-o7',
+    '-force',
+    '-out', execBuffer.output,
+    execBuffer.input
+  ]
+});
 
-function pngquant(buffer) {
-  return execa.stdout(require('pngquant-bin'), [
-    '--speed=1',
-    '--force',
-    '256'
-  ], {
-    encoding : null,
-    input    : buffer
-  });
-}
+const pngquant = buffer => execa.stdout(require('pngquant-bin'), [
+  '--speed=1',
+  '--force',
+  '256'
+], {
+  encoding : null,
+  input    : buffer
+});
 
-function pngcrush(buffer) {
-  return execBuffer({
-    input : buffer,
-    bin   : require('pngcrush-bin'),
-    args  : [
-      '-rem alla',
-      '-rem text',
-      '-brute',
-      '-reduce',
-      execBuffer.input,
-      execBuffer.output
-    ]
-  });
-}
+const pngcrush = buffer => execBuffer({
+  input : buffer,
+  bin   : require('pngcrush-bin'),
+  args  : [
+    '-rem alla',
+    '-rem text',
+    '-brute',
+    '-reduce',
+    execBuffer.input,
+    execBuffer.output
+  ]
+});
 
-function zopflipng(buffer) {
-  return execBuffer({
-    input : buffer,
-    bin   : require('zopflipng-bin'),
-    args  : [
-      '-y',
-      '--lossy_8bit',
-      '--lossy_transparent',
-      execBuffer.input,
-      execBuffer.output
-    ]
-  });
-}
+const zopflipng = buffer => execBuffer({
+  input : buffer,
+  bin   : require('zopflipng-bin'),
+  args  : [
+    '-y',
+    '--lossy_8bit',
+    '--lossy_transparent',
+    execBuffer.input,
+    execBuffer.output
+  ]
+});
 
-function gifsicle(buffer) {
-  return execBuffer({
-    input : buffer,
-    bin   : require('gifsicle'),
-    args  : [
-      '--optimize',
-      '--output',
-      execBuffer.output,
-      execBuffer.input
-    ]
-  });
-}
+const gifsicle = buffer => execBuffer({
+  input : buffer,
+  bin   : require('gifsicle'),
+  args  : [
+    '--optimize',
+    '--output',
+    execBuffer.output,
+    execBuffer.input
+  ]
+});
 
-function jpegRecompress(buffer) {
-  return execBuffer({
-    input : buffer,
-    bin   : require('jpeg-recompress-bin'),
-    args  : [
-      '--strip',
-      '--quality', 'medium',
-      '--min', 40,
-      '--max', 80,
-      execBuffer.input,
-      execBuffer.output
-    ]
-  });
-}
+const jpegRecompress = buffer => execBuffer({
+  input : buffer,
+  bin   : require('jpeg-recompress-bin'),
+  args  : [
+    '--strip',
+    '--quality', 'medium',
+    '--min', 40,
+    '--max', 80,
+    execBuffer.input,
+    execBuffer.output
+  ]
+});
 
-function jpegoptim(buffer) {
-  return execa.stdout(require('jpegoptim-bin'), [
-    '--strip-all',
-    '--strip-iptc',
-    '--strip-icc',
-    '--stdin',
-	  '--stdout'
-  ], {
-    encoding : null,
-    input    : buffer
-  });
-}
+const jpegoptim = buffer => execa.stdout(require('jpegoptim-bin'), [
+  '--strip-all',
+  '--strip-iptc',
+  '--strip-icc',
+  '--stdin',
+  '--stdout'
+], {
+  encoding : null,
+  input    : buffer
+});
 
-function mozjpeg(buffer) {
-  return execa.stdout(require('mozjpeg'), [
-    '-optimize',
-    '-progressive'
-  ], {
-    encoding : null,
-    input    : buffer
-  });
-}
+const mozjpeg = buffer => execa.stdout(require('mozjpeg'), [
+  '-optimize',
+  '-progressive'
+], {
+  encoding : null,
+  input    : buffer
+});
 
-function svgo(buffer, options) {
-  let args = [
+const svgo = (buffer, options) => {
+  const args = [
     '--input', execBuffer.input,
     '--output', execBuffer.output
   ];
 
-  if (options.enable) {
-    args.push(`--enable=${options.enable}`);
+  if (Array.isArray(options.enables)) {
+    options.enables.forEach(enable => {
+      args.push(`--enable=${enable}`);
+    });
   }
 
-  if (options.disable) {
-    args.push(`--disable=${options.disable}`);
+  if (Array.isArray(options.disables)) {
+    options.disables.forEach(disable => {
+      args.push(`--disable=${disable}`);
+    });
   }
 
   return execBuffer({
@@ -136,7 +124,7 @@ function svgo(buffer, options) {
   });
 }
 
-module.exports = function(buffer, options) {
+module.exports = (buffer, options) => {
   if (isJpg(buffer)) {
     return Promise.resolve(buffer)
       .then(buffer => options.jpegRecompress ? jpegRecompress(buffer) : buffer)
