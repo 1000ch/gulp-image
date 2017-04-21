@@ -50,6 +50,7 @@ gulp.task('image', function () {
       jpegRecompress: false,
       jpegoptim: true,
       mozjpeg: true,
+      guetzli: false,
       gifsicle: true,
       svgo: true,
       concurrent: 10

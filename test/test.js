@@ -93,7 +93,8 @@ test('should minify JPG images with jpegRecompress', t => {
   const stream = image({
     jpegRecompress : true,
     jpegoptim      : false,
-    mozjpeg        : false
+    mozjpeg        : false,
+    guetzli        : false
   });
 
   stream.on('data', file => {
@@ -114,7 +115,8 @@ test('should minify JPG images with jpegoptim', t => {
   const stream = image({
     jpegRecompress : false,
     jpegoptim      : true,
-    mozjpeg        : false
+    mozjpeg        : false,
+    guetzli        : false
   });
 
   stream.on('data', file => {
@@ -135,7 +137,30 @@ test('should minify JPG images with mozjpeg', t => {
   const stream = image({
     jpegRecompress : false,
     jpegoptim      : false,
-    mozjpeg        : true
+    mozjpeg        : true,
+    guetzli        : false
+  });
+
+  stream.on('data', file => {
+    const before = fs.statSync('test/fixtures/test.jpg').size;
+    const after  = file.contents.length;
+    t.true(after < before);
+  });
+
+  stream.write(new gutil.File({
+    path     : `${__dirname}/fixtures/test.jpg`,
+    contents : fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
+  }));
+
+  stream.end();
+});
+
+test('should minify JPG images with guetzli', t => {
+  const stream = image({
+    jpegRecompress : false,
+    jpegoptim      : false,
+    mozjpeg        : false,
+    guetzli        : true
   });
 
   stream.on('data', file => {

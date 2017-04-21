@@ -23,6 +23,7 @@
     "execa": "^0.6.0",
     "filesize": "^3.3.0",
     "gifsicle": "^3.0.3",
+    "guetzli": "^1.0.1",
     "gulp-util": "^3.0.7",
     "is-gif": "^1.0.0",
     "is-jpg": "^1.0.0",

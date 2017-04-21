@@ -32,6 +32,7 @@ module.exports = options => through2.obj({
     jpegRecompress : false,
     jpegoptim      : true,
     mozjpeg        : true,
+    guetzli        : false,
     gifsicle       : true,
     svgo           : true
   }, options)).then(buffer => {

@@ -99,6 +99,16 @@ const mozjpeg = buffer => execa.stdout(require('mozjpeg'), [
   input    : buffer
 });
 
+const guetzli = buffer => execBuffer({
+  input : buffer,
+  bin   : require('guetzli'),
+  args  : [
+    '--quality', 85,
+    execBuffer.input,
+    execBuffer.output
+  ]
+});
+
 const svgo = (buffer, options) => {
   const args = [
     '--input', execBuffer.input,
@@ -129,7 +139,8 @@ module.exports = (buffer, options) => {
     return Promise.resolve(buffer)
       .then(buffer => options.jpegRecompress ? jpegRecompress(buffer) : buffer)
       .then(buffer => options.jpegoptim ? jpegoptim(buffer) : buffer)
-      .then(buffer => options.mozjpeg ? mozjpeg(buffer) : buffer);
+      .then(buffer => options.mozjpeg ? mozjpeg(buffer) : buffer)
+      .then(buffer => options.guetzli ? guetzli(buffer) : buffer);
   } else if (isPng(buffer)) {
     return Promise.resolve(buffer)
       .then(buffer => options.pngquant ? pngquant(buffer) : buffer)
