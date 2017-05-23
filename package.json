@@ -32,11 +32,11 @@
     "jpeg-recompress-bin": "^3.0.1",
     "jpegoptim-bin": "^3.0.0",
     "mozjpeg": "^4.1.1",
-    "optipng-bin": "^3.1.2",
+    "optipng-bin": "^4.0.0",
     "pngquant-bin": "^3.1.0",
     "svgo": "^0.7.0",
     "through2-concurrent": "^1.1.1",
-    "zopflipng-bin": "^3.0.1"
+    "zopflipng-bin": "^4.0.0"
   },
   "devDependencies": {
     "ava": "^0.18.0"
