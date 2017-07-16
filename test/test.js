@@ -5,7 +5,9 @@ const fs = require('fs');
 const gutil = require('gulp-util');
 const image = require('..');
 
-test('should minify PNG images with pngquant', t => {
+test.cb('should minify PNG images with pngquant', t => {
+  t.plan(1);
+
   const stream = image({
     pngquant  : true,
     optipng   : false,
@@ -16,6 +18,7 @@ test('should minify PNG images with pngquant', t => {
     const before = fs.statSync('test/fixtures/test.png').size;
     const after  = file.contents.length;
     t.true(after < before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -26,7 +29,9 @@ test('should minify PNG images with pngquant', t => {
   stream.end();
 });
 
-test('should minify PNG images with optipng', t => {
+test.cb('should minify PNG images with optipng', t => {
+  t.plan(1);
+
   const stream = image({
     pngquant  : false,
     optipng   : true,
@@ -37,6 +42,7 @@ test('should minify PNG images with optipng', t => {
     const before = fs.statSync('test/fixtures/test.png').size;
     const after  = file.contents.length;
     t.true(after < before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -47,7 +53,9 @@ test('should minify PNG images with optipng', t => {
   stream.end();
 });
 
-test('should minify PNG images with zopflipng', t => {
+test.cb('should minify PNG images with zopflipng', t => {
+  t.plan(1);
+
   const stream = image({
     pngquant  : false,
     optipng   : false,
@@ -58,6 +66,7 @@ test('should minify PNG images with zopflipng', t => {
     const before = fs.statSync('test/fixtures/test.png').size;
     const after  = file.contents.length;
     t.true(after < before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -68,7 +77,9 @@ test('should minify PNG images with zopflipng', t => {
   stream.end();
 });
 
-test('should not minify PNG images when related options are disabled', t => {
+test.cb('should not minify PNG images when related options are disabled', t => {
+  t.plan(1);
+
   const stream = image({
     pngquant  : false,
     optipng   : false,
@@ -79,6 +90,7 @@ test('should not minify PNG images when related options are disabled', t => {
     const before = fs.statSync('test/fixtures/test.png').size;
     const after  = file.contents.length;
     t.true(after === before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -89,7 +101,9 @@ test('should not minify PNG images when related options are disabled', t => {
   stream.end();
 });
 
-test('should minify JPG images with jpegRecompress', t => {
+test.cb('should minify JPG images with jpegRecompress', t => {
+  t.plan(1);
+
   const stream = image({
     jpegRecompress : true,
     jpegoptim      : false,
@@ -101,6 +115,7 @@ test('should minify JPG images with jpegRecompress', t => {
     const before = fs.statSync('test/fixtures/test.jpg').size;
     const after  = file.contents.length;
     t.true(after < before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -111,7 +126,9 @@ test('should minify JPG images with jpegRecompress', t => {
   stream.end();
 });
 
-test('should minify JPG images with jpegoptim', t => {
+test.cb('should minify JPG images with jpegoptim', t => {
+  t.plan(1);
+
   const stream = image({
     jpegRecompress : false,
     jpegoptim      : true,
@@ -123,6 +140,7 @@ test('should minify JPG images with jpegoptim', t => {
     const before = fs.statSync('test/fixtures/test.jpg').size;
     const after  = file.contents.length;
     t.true(after < before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -133,7 +151,9 @@ test('should minify JPG images with jpegoptim', t => {
   stream.end();
 });
 
-test('should minify JPG images with mozjpeg', t => {
+test.cb('should minify JPG images with mozjpeg', t => {
+  t.plan(1);
+
   const stream = image({
     jpegRecompress : false,
     jpegoptim      : false,
@@ -145,6 +165,7 @@ test('should minify JPG images with mozjpeg', t => {
     const before = fs.statSync('test/fixtures/test.jpg').size;
     const after  = file.contents.length;
     t.true(after < before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -155,7 +176,9 @@ test('should minify JPG images with mozjpeg', t => {
   stream.end();
 });
 
-test('should minify JPG images with guetzli', t => {
+test.cb('should minify JPG images with guetzli', t => {
+  t.plan(1);
+
   const stream = image({
     jpegRecompress : false,
     jpegoptim      : false,
@@ -167,6 +190,7 @@ test('should minify JPG images with guetzli', t => {
     const before = fs.statSync('test/fixtures/test.jpg').size;
     const after  = file.contents.length;
     t.true(after < before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -177,7 +201,9 @@ test('should minify JPG images with guetzli', t => {
   stream.end();
 });
 
-test('should not minify JPG images when related options are disabled', t => {
+test.cb('should not minify JPG images when related options are disabled', t => {
+  t.plan(1);
+
   const stream = image({
     jpegRecompress : false,
     jpegoptim      : false,
@@ -188,6 +214,7 @@ test('should not minify JPG images when related options are disabled', t => {
     const before = fs.statSync('test/fixtures/test.jpg').size;
     const after  = file.contents.length;
     t.true(after === before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -198,13 +225,16 @@ test('should not minify JPG images when related options are disabled', t => {
   stream.end();
 });
 
-test('should minify GIF images', t => {
+test.cb('should minify GIF images', t => {
+  t.plan(1);
+
   const stream = image();
 
   stream.on('data', file => {
     const before = fs.statSync('test/fixtures/test.gif').size;
     const after  = file.contents.length;
     t.true(after < before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -215,7 +245,9 @@ test('should minify GIF images', t => {
   stream.end();
 });
 
-test('should not minify GIF images when related options are disabled', t => {
+test.cb('should not minify GIF images when related options are disabled', t => {
+  t.plan(1);
+
   const stream = image({
     gifsicle : false
   });
@@ -224,6 +256,7 @@ test('should not minify GIF images when related options are disabled', t => {
     const before = fs.statSync('test/fixtures/test.gif').size;
     const after  = file.contents.length;
     t.true(after === before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -234,13 +267,16 @@ test('should not minify GIF images when related options are disabled', t => {
   stream.end();
 });
 
-test('should minify SVG images', t => {
+test.cb('should minify SVG images', t => {
+  t.plan(1);
+
   const stream = image();
 
   stream.on('data', file => {
     const before = fs.statSync('test/fixtures/test.svg').size;
     const after  = file.contents.length;
     t.true(after < before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -249,7 +285,9 @@ test('should minify SVG images', t => {
   }));
 });
 
-test('should not minify SVG images when related options are disabled', t => {
+test.cb('should not minify SVG images when related options are disabled', t => {
+  t.plan(1);
+
   const stream = image({
     svgo : false
   });
@@ -257,7 +295,8 @@ test('should not minify SVG images when related options are disabled', t => {
   stream.on('data', file => {
     const before = fs.statSync('test/fixtures/test.svg').size;
     const after  = file.contents.length;
-    t.true(after < before);
+    t.true(after === before);
+    t.end();
   });
 
   stream.write(new gutil.File({
@@ -266,11 +305,14 @@ test('should not minify SVG images when related options are disabled', t => {
   }));
 });
 
-test('should skip unsupported images', t => {
+test.cb('should skip unsupported images', t => {
+  t.plan(1);
+
   const stream = image();
 
   stream.on('data', file => {
     t.is(file.contents, null);
+    t.end();
   });
 
   stream.write(new gutil.File({
