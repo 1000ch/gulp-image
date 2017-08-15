@@ -115,14 +115,14 @@ const svgo = (buffer, options) => {
     '--output', execBuffer.output
   ];
 
-  if (Array.isArray(options.enables)) {
-    options.enables.forEach(enable => {
+  if (Array.isArray(options.enable)) {
+    options.enable.forEach(enable => {
       args.push(`--enable=${enable}`);
     });
   }
 
-  if (Array.isArray(options.disables)) {
-    options.disables.forEach(disable => {
+  if (Array.isArray(options.disable)) {
+    options.disable.forEach(disable => {
       args.push(`--disable=${disable}`);
     });
   }
