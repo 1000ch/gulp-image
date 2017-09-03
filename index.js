@@ -30,7 +30,6 @@ module.exports = options => through2.obj({
     optipng        : false,
     zopflipng      : true,
     jpegRecompress : false,
-    jpegoptim      : true,
     mozjpeg        : true,
     guetzli        : false,
     gifsicle       : true,

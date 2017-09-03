@@ -80,17 +80,6 @@ const jpegRecompress = buffer => execBuffer({
   ]
 });
 
-const jpegoptim = buffer => execa.stdout(require('jpegoptim-bin'), [
-  '--strip-all',
-  '--strip-iptc',
-  '--strip-icc',
-  '--stdin',
-  '--stdout'
-], {
-  encoding : null,
-  input    : buffer
-});
-
 const mozjpeg = buffer => execa.stdout(require('mozjpeg'), [
   '-optimize',
   '-progressive'
@@ -138,7 +127,6 @@ module.exports = (buffer, options) => {
   if (isJpg(buffer)) {
     return Promise.resolve(buffer)
       .then(buffer => options.jpegRecompress ? jpegRecompress(buffer) : buffer)
-      .then(buffer => options.jpegoptim ? jpegoptim(buffer) : buffer)
       .then(buffer => options.mozjpeg ? mozjpeg(buffer) : buffer)
       .then(buffer => options.guetzli ? guetzli(buffer) : buffer);
   } else if (isPng(buffer)) {
