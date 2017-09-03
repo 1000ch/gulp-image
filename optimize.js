@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('path');
-const execa = require('execa');
 const execBuffer = require('exec-buffer');
 const isPng = require('is-png');
 const isJpg = require('is-jpg');
@@ -22,13 +21,15 @@ const optipng = buffer => execBuffer({
   ]
 });
 
-const pngquant = buffer => execa.stdout(require('pngquant-bin'), [
-  '--speed=1',
-  '--force',
-  '256'
-], {
-  encoding : null,
-  input    : buffer
+const pngquant = buffer => execBuffer({
+  input : buffer,
+  bin   : require('pngquant-bin'),
+  args  : [
+    '--speed=1',
+    '--force', '256',
+    '--output', execBuffer.output,
+    execBuffer.input
+  ]
 });
 
 const pngcrush = buffer => execBuffer({
@@ -80,12 +81,15 @@ const jpegRecompress = buffer => execBuffer({
   ]
 });
 
-const mozjpeg = buffer => execa.stdout(require('mozjpeg'), [
-  '-optimize',
-  '-progressive'
-], {
-  encoding : null,
-  input    : buffer
+const mozjpeg = buffer => execBuffer({
+  input : buffer,
+  bin   : require('mozjpeg'),
+  args  : [
+    '-optimize',
+    '-progressive',
+    '-outfile', execBuffer.output,
+    execBuffer.input
+  ]
 });
 
 const guetzli = buffer => execBuffer({

@@ -20,7 +20,6 @@
   },
   "dependencies": {
     "exec-buffer": "^3.2.0",
-    "execa": "^0.7.0",
     "filesize": "^3.5.0",
     "gifsicle": "^3.0.3",
     "guetzli": "^1.0.1",
