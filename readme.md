@@ -7,7 +7,7 @@ Optimize PNG, JPEG, GIF, SVG images with gulp task.
 [![Dependency Status](https://david-dm.org/1000ch/gulp-image.svg)](https://david-dm.org/1000ch/gulp-image)
 [![devDependency Status](https://david-dm.org/1000ch/gulp-image/dev-status.svg)](https://david-dm.org/1000ch/gulp-image?type=dev)
 
-![](https://raw.github.com/1000ch/gulp-image/master/screenshot/terminal.png)
+![gulp-image result](https://raw.github.com/1000ch/gulp-image/master/screenshot/terminal.png)
 
 ## Install
 
@@ -59,19 +59,19 @@ gulp.task('image', function () {
 
 Set `false` for optimizers which you don't want to apply. And you can set `concurrent` option to limit the max concurrency in execution.
 
-Optionally you may pass enable and disable options to [svgo](https://github.com/svg/svgo):
+You can configure parameters applied to each optimizers such as following:
 
 ```javascript
-gulp.task('image', function () {
-  gulp.src('./fixtures/*')
-    .pipe(image({
-      svgo: {
-        enable: ['removeRasterImages'], 
-        disable: ['removeDoctype']
-      }
-    }))
-    .pipe(gulp.dest('./dest'));
-});
+options: {
+  optipng: ['-i 1', '-strip all', '-fix', '-o7', '-force'],
+  pngquant: ['--speed=1', '--force', 256],
+  zopflipng: ['-y', '--lossy_8bit', '--lossy_transparent'],
+  jpegRecompress: ['--strip', '--quality', 'medium', '--min', 40, '--max', 80],
+  mozjpeg: ['-optimize', '-progressive'],
+  guetzli: ['--quality', 85],
+  gifsicle: ['--optimize'],
+  svgo: ['--enable', 'cleanupIDs', '--disable', 'convertColors']
+}
 ```
 
 ## License
