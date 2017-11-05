@@ -1,11 +1,13 @@
 'use strict';
 
-const path = require('path');
+const { extname } = require('path');
 const through2 = require('through2-concurrent');
 const gutil = require('gulp-util');
 const filesize = require('filesize');
 const { round10 } = require('round10');
 const optimize = require('./optimize');
+
+const SUPPORTED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.svg'];
 
 module.exports = options => through2.obj({
   maxConcurrency: options ? options.concurrent : null
@@ -18,9 +20,9 @@ module.exports = options => through2.obj({
     return callback(new Error('gulp-image: Streaming is not supported'));
   }
 
-  const extension = path.extname(file.path).toLowerCase();
+  const extension = extname(file.path).toLowerCase();
 
-  if (['.jpg', '.jpeg', '.png', '.gif', '.svg'].indexOf(extension) === -1) {
+  if (!SUPPORTED_EXTENSIONS.includes(extension)) {
     gutil.log('gulp-image: Skipping unsupported image ' + gutil.colors.blue(file.relative));
     return callback(null, file);
   }
