@@ -4,8 +4,8 @@ const path = require('path');
 const through2 = require('through2-concurrent');
 const gutil = require('gulp-util');
 const filesize = require('filesize');
+const { round10 } = require('round10');
 const optimize = require('./optimize');
-const round10 = require('./round10');
 
 module.exports = options => through2.obj({
   maxConcurrency: options ? options.concurrent : null
