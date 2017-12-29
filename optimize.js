@@ -90,20 +90,76 @@ function svgo(buffer, args) {
 module.exports = function(buffer, options) {
   if (isJpg(buffer)) {
     return Promise.resolve(buffer)
-      .then(buffer => options.jpegRecompress ? jpegRecompress(buffer, options.jpegRecompress) : buffer)
-      .then(buffer => options.mozjpeg ? mozjpeg(buffer, options.mozjpeg) : buffer)
-      .then(buffer => options.guetzli ? guetzli(buffer, options.guetzli) : buffer);
+    .then(buffer => {
+      try {
+        return options.jpegRecompress ? jpegRecompress(buffer, options.jpegRecompress) : buffer;
+      } catch(e) {
+        console.error(e);
+        return buffer;
+      }
+    })
+    .then(buffer => {
+      try {
+        return options.mozjpeg ? mozjpeg(buffer, options.mozjpeg) : buffer;
+      } catch(e) {
+        console.error(e);
+        return buffer;
+      }
+    })
+    .then(buffer => {
+      try {
+        return options.guetzli ? guetzli(buffer, options.guetzli) : buffer;
+      } catch(e) {
+        console.error(e);
+        return buffer;
+      }
+    });
   } else if (isPng(buffer)) {
     return Promise.resolve(buffer)
-      .then(buffer => options.pngquant ? pngquant(buffer, options.pngquant) : buffer)
-      .then(buffer => options.optipng ? optipng(buffer, options.optipng) : buffer)
-      .then(buffer => options.zopflipng ? zopflipng(buffer, options.zopflipng) : buffer);
+    .then(buffer => {
+      try {
+        return options.pngquant ? pngquant(buffer, options.pngquant) : buffer;
+      } catch(e) {
+        console.error(e);
+        return buffer;
+      }
+    })
+    .then(buffer => {
+      try {
+        return options.optipng ? optipng(buffer, options.optipng) : buffer;
+      } catch(e) {
+        console.error(e);
+        return buffer;
+      }
+    })
+    .then(buffer => {
+      try {
+        return options.zopflipng ? zopflipng(buffer, options.zopflipng) : buffer;
+      } catch(e) {
+        console.error(e);
+        return buffer;
+      }
+    });
   } else if (isGif(buffer)) {
     return Promise.resolve(buffer)
-      .then(buffer => options.gifsicle ? gifsicle(buffer, options.gifsicle) : buffer);
+    .then(buffer => {
+      try {
+        return options.gifsicle ? gifsicle(buffer, options.gifsicle) : buffer;
+      } catch(e) {
+        console.error(e);
+        return buffer;
+      }
+    });
   } else if (isSvg(buffer)) {
     return Promise.resolve(buffer)
-      .then(buffer => options.svgo ? svgo(buffer, options.svgo) : buffer);
+    .then(buffer => {
+      try {
+        return options.svgo ? svgo(buffer, options.svgo) : buffer;
+      } catch(e) {
+        console.error(e);
+        return buffer;
+      }
+    });
   }
 
   return Promise.resolve(buffer);

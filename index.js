@@ -29,11 +29,11 @@ module.exports = options => through2.obj({
 
   optimize(file.contents, Object.assign({
     pngquant       : true,
-    optipng        : false,
+    optipng        : true,
     zopflipng      : true,
-    jpegRecompress : false,
+    jpegRecompress : true,
     mozjpeg        : true,
-    guetzli        : false,
+    guetzli        : true,
     gifsicle       : true,
     svgo           : true
   }, options)).then(buffer => {
