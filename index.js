@@ -2,7 +2,10 @@
 
 const { extname } = require('path');
 const through2 = require('through2-concurrent');
-const gutil = require('gulp-util');
+const PluginError = require('plugin-error');
+const colors = require('ansi-colors');
+const log = require('fancy-log');
+const replaceExtension = require('replace-ext');
 const filesize = require('filesize');
 const { round10 } = require('round10');
 const optimize = require('./optimize');
@@ -23,7 +26,7 @@ module.exports = options => through2.obj({
   const extension = extname(file.path).toLowerCase();
 
   if (!SUPPORTED_EXTENSIONS.includes(extension)) {
-    gutil.log('gulp-image: Skipping unsupported image ' + gutil.colors.blue(file.relative));
+    log('gulp-image: Skipping unsupported image ' + colors.blue(file.relative));
     return callback(null, file);
   }
 
@@ -43,23 +46,23 @@ module.exports = options => through2.obj({
     const diffPercent = round10(100 * (diff / before), -1);
 
     if (diff <= 0) {
-      gutil.log(
-        gutil.colors.green('- ') + file.relative + gutil.colors.gray(' ->') +
-        gutil.colors.gray(' Cannot improve upon ') + gutil.colors.cyan(filesize(before))
+      log(
+        colors.green('- ') + file.relative + colors.gray(' ->') +
+        colors.gray(' Cannot improve upon ') + colors.cyan(filesize(before))
       );
     } else {
       file.contents = buffer;
 
-      gutil.log(
-        gutil.colors.green('✔ ') + file.relative + gutil.colors.gray(' ->') +
-        gutil.colors.gray(' before=') + gutil.colors.yellow(filesize(before)) +
-        gutil.colors.gray(' after=') + gutil.colors.cyan(filesize(after)) +
-        gutil.colors.gray(' reduced=') + gutil.colors.green.underline(filesize(diff) + '(' + diffPercent + '%)')
+      log(
+        colors.green('✔ ') + file.relative + colors.gray(' ->') +
+        colors.gray(' before=') + colors.yellow(filesize(before)) +
+        colors.gray(' after=') + colors.cyan(filesize(after)) +
+        colors.gray(' reduced=') + colors.green(filesize(diff) + '(' + diffPercent + '%)')
       );
     }
 
     callback(null, file);
   }).catch(error => {
-    callback(new gutil.PluginError('gulp-image', error));
+    callback(new PluginError('gulp-image', error));
   });
 });
