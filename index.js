@@ -4,13 +4,14 @@ const { extname } = require('path');
 const through2 = require('through2-concurrent');
 const PluginError = require('plugin-error');
 const colors = require('ansi-colors');
-const log = require('fancy-log');
+const fancyLog = require('fancy-log');
 const replaceExtension = require('replace-ext');
 const filesize = require('filesize');
 const { round10 } = require('round10');
 const optimize = require('./optimize');
 
 const SUPPORTED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.svg'];
+const NOOP = () => {};
 
 module.exports = options => through2.obj({
   maxConcurrency: options ? options.concurrent : null
@@ -23,6 +24,7 @@ module.exports = options => through2.obj({
     return callback(new Error('gulp-image: Streaming is not supported'));
   }
 
+  const log = options && options.quiet ? NOOP : fancyLog;
   const extension = extname(file.path).toLowerCase();
 
   if (!SUPPORTED_EXTENSIONS.includes(extension)) {
