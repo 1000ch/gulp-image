@@ -51,13 +51,14 @@ gulp.task('image', function () {
       guetzli: false,
       gifsicle: true,
       svgo: true,
-      concurrent: 10
+      concurrent: 10,
+      quiet: true // defaults to false
     }))
     .pipe(gulp.dest('./dest'));
 });
 ```
 
-Set `false` for optimizers which you don't want to apply. And you can set `concurrent` option to limit the max concurrency in execution.
+Set `false` for optimizers which you don't want to apply. And you can set `concurrent` option to limit the max concurrency in execution.  You can also set `quiet` to avoid logging out results for every image processed.
 
 You can configure parameters applied to each optimizers such as following:
 
