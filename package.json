@@ -33,7 +33,7 @@
     "mozjpeg": "^5.0.0",
     "optipng-bin": "^4.0.0",
     "plugin-error": "^1.0.0",
-    "pngquant-bin": "^3.1.0",
+    "pngquant-bin": "^4.0.0",
     "replace-ext": "^1.0.0",
     "round10": "^1.0.3",
     "svgo": "^1.0.2",
