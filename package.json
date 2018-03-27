@@ -26,7 +26,7 @@
     "gifsicle": "^3.0.3",
     "guetzli": "^1.0.1",
     "is-gif": "^1.0.0",
-    "is-jpg": "^1.0.0",
+    "is-jpg": "^2.0.0",
     "is-png": "^1.1.0",
     "is-svg": "^3.0.0",
     "jpeg-recompress-bin": "^3.0.1",
