@@ -40,7 +40,7 @@ gulp.task('default', ['image']);
 You can pass an object to `image()` as argument such as following:
 
 ```javascript
-gulp.task('image', function () {
+gulp.task('image', () => {
   gulp.src('./fixtures/*')
     .pipe(image({
       pngquant: true,
@@ -63,16 +63,20 @@ Set `false` for optimizers which you don't want to apply. And you can set `concu
 You can configure parameters applied to each optimizers such as following:
 
 ```javascript
-options: {
-  optipng: ['-i 1', '-strip all', '-fix', '-o7', '-force'],
-  pngquant: ['--speed=1', '--force', 256],
-  zopflipng: ['-y', '--lossy_8bit', '--lossy_transparent'],
-  jpegRecompress: ['--strip', '--quality', 'medium', '--min', 40, '--max', 80],
-  mozjpeg: ['-optimize', '-progressive'],
-  guetzli: ['--quality', 85],
-  gifsicle: ['--optimize'],
-  svgo: ['--enable', 'cleanupIDs', '--disable', 'convertColors']
-}
+gulp.task('image', () => {
+  gulp.src('./fixtures/*')
+    .pipe(image({
+      optipng: ['-i 1', '-strip all', '-fix', '-o7', '-force'],
+      pngquant: ['--speed=1', '--force', 256],
+      zopflipng: ['-y', '--lossy_8bit', '--lossy_transparent'],
+      jpegRecompress: ['--strip', '--quality', 'medium', '--min', 40, '--max', 80],
+      mozjpeg: ['-optimize', '-progressive'],
+      guetzli: ['--quality', 85],
+      gifsicle: ['--optimize'],
+      svgo: ['--enable', 'cleanupIDs', '--disable', 'convertColors']
+    }))
+    .pipe(gulp.dest('./dest'));
+});
 ```
 
 ## License
