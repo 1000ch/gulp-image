@@ -55,11 +55,19 @@ module.exports = options => through2.obj({
     } else {
       file.contents = buffer;
 
+      var sizeBefore      = filesize(before),
+          sizeAfter       = filesize(after),
+          sizeDiff        = filesize(diff),
+          sizeDiffPercent = diffPercent + '%',
+          SPACES          = ['', ' ', '  ', '   ', '    ', '     ', '      ', '       ', '        ', '         ', '          '];
+
       log(
-        colors.green('✔ ') + file.relative + colors.gray(' ->') +
-        colors.gray(' before=') + colors.yellow(filesize(before)) +
-        colors.gray(' after=') + colors.cyan(filesize(after)) +
-        colors.gray(' reduced=') + colors.green(filesize(diff) + '(' + diffPercent + '%)')
+        colors.green('✔') +
+        colors.gray(' Before -> ')  + SPACES[(10 - sizeBefore.length)]      + colors.yellow(sizeBefore) +
+        colors.gray(' After -> ')   + SPACES[(10 - sizeAfter.length)]       + colors.cyan(sizeAfter) +
+        colors.gray(' Reduced -> ') + SPACES[(10 - sizeDiff.length)]        + colors.green(sizeDiff) +
+                                      SPACES[(10 - sizeDiffPercent.length)] + colors.green(sizeDiffPercent) +
+        colors.gray(' | ')          + file.relative
       );
     }
 
