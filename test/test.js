@@ -2,7 +2,7 @@
 
 const test = require('ava');
 const fs = require('fs');
-const gutil = require('gulp-util');
+const Vinyl = require('vinyl');
 const image = require('..');
 
 test.cb('should minify PNG images with pngquant', t => {
@@ -21,7 +21,7 @@ test.cb('should minify PNG images with pngquant', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path     : `${__dirname}/fixtures/test.png`,
     contents : fs.readFileSync(`${__dirname}/fixtures/test.png`)
   }));
@@ -45,7 +45,7 @@ test.cb('should minify PNG images with optipng', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path     : `${__dirname}/fixtures/test.png`,
     contents : fs.readFileSync(`${__dirname}/fixtures/test.png`)
   }));
@@ -69,7 +69,7 @@ test.cb('should minify PNG images with zopflipng', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path     : `${__dirname}/fixtures/test.png`,
     contents : fs.readFileSync(`${__dirname}/fixtures/test.png`)
   }));
@@ -93,7 +93,7 @@ test.cb('should not minify PNG images when related options are disabled', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path     : `${__dirname}/fixtures/test.png`,
     contents : fs.readFileSync(`${__dirname}/fixtures/test.png`)
   }));
@@ -117,7 +117,7 @@ test.cb('should minify JPG images with jpegRecompress', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path     : `${__dirname}/fixtures/test.jpg`,
     contents : fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
   }));
@@ -141,7 +141,7 @@ test.cb('should minify JPG images with mozjpeg', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path     : `${__dirname}/fixtures/test.jpg`,
     contents : fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
   }));
@@ -165,7 +165,7 @@ test.cb('should minify JPG images with guetzli', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path     : `${__dirname}/fixtures/test.jpg`,
     contents : fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
   }));
@@ -189,7 +189,7 @@ test.cb('should not minify JPG images when related options are disabled', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path     : `${__dirname}/fixtures/test.jpg`,
     contents : fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
   }));
@@ -209,7 +209,7 @@ test.cb('should minify GIF images', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path     :  `${__dirname}/fixtures/test.gif`,
     contents : fs.readFileSync(`${__dirname}/fixtures/test.gif`)
   }));
@@ -231,7 +231,7 @@ test.cb('should not minify GIF images when related options are disabled', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path     :  `${__dirname}/fixtures/test.gif`,
     contents : fs.readFileSync(`${__dirname}/fixtures/test.gif`)
   }));
@@ -251,7 +251,7 @@ test.cb('should minify SVG images', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path     : `${__dirname}/fixtures/test.svg`,
     contents : fs.readFileSync(`${__dirname}/fixtures/test.svg`)
   }));
@@ -271,7 +271,7 @@ test.cb('should not minify SVG images when related options are disabled', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path     : `${__dirname}/fixtures/test.svg`,
     contents : fs.readFileSync(`${__dirname}/fixtures/test.svg`)
   }));
@@ -287,7 +287,7 @@ test.cb('should skip unsupported images', t => {
     t.end();
   });
 
-  stream.write(new gutil.File({
+  stream.write(new Vinyl({
     path : `${__dirname}fixtures/test.bmp`
   }));
 

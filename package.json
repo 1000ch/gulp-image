@@ -41,7 +41,8 @@
     "zopflipng-bin": "^4.1.0"
   },
   "devDependencies": {
-    "ava": "^0.25.0"
+    "ava": "^0.25.0",
+    "vinyl": "^2.2.0"
   },
   "keywords": [
     "compress",
