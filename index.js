@@ -5,7 +5,6 @@ const through2 = require('through2-concurrent');
 const PluginError = require('plugin-error');
 const colors = require('ansi-colors');
 const fancyLog = require('fancy-log');
-const replaceExtension = require('replace-ext');
 const filesize = require('filesize');
 const { round10 } = require('round10');
 const optimize = require('./optimize');
