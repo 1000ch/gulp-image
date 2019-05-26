@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "test": "ava"
@@ -27,11 +27,11 @@
     "guetzli": "^2.0.0",
     "is-gif": "^3.0.0",
     "is-jpg": "^2.0.0",
-    "is-png": "^1.1.0",
-    "is-svg": "^3.0.0",
+    "is-png": "^2.0.0",
+    "is-svg": "^4.1.0",
     "jpeg-recompress-bin": "^4.0.0",
     "mozjpeg": "^6.0.1",
-    "optipng-bin": "^5.0.0",
+    "optipng-bin": "^6.0.0",
     "plugin-error": "^1.0.0",
     "pngquant-bin": "^5.0.0",
     "round10": "^1.0.3",
@@ -40,7 +40,7 @@
     "zopflipng-bin": "^5.0.0"
   },
   "devDependencies": {
-    "ava": "^1.0.1",
+    "ava": "^1.4.1",
     "vinyl": "^2.2.0"
   },
   "keywords": [
