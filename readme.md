@@ -19,6 +19,7 @@ $ npm install --save-dev gulp-image
 
 - `brew install libjpeg libpng` on macOS
 - `apt-get install -y libjpeg libpng` on Ubuntu
+- `npm install -g windows-build-tools` on Windows
 
 ## Usage
 
