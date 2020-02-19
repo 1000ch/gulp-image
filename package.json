@@ -40,7 +40,7 @@
     "zopflipng-bin": "^5.0.0"
   },
   "devDependencies": {
-    "ava": "^2.0.0",
+    "ava": "^3.3.0",
     "vinyl": "^2.2.0"
   },
   "keywords": [
