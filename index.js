@@ -22,7 +22,9 @@ module.exports = options => through2.obj({
   const log = options && options.quiet ? () => {} : fancyLog;
 
   try {
-    const buffer = await optimize(file.contents, {
+    const originalBuffer = file.contents;
+    const originalSize = originalBuffer.length;
+    const optimizedBuffer = await optimize(originalBuffer, {
       pngquant: true,
       optipng: false,
       zopflipng: true,
@@ -32,27 +34,25 @@ module.exports = options => through2.obj({
       svgo: true,
       ...options
     });
+    const optimizedSize = optimizedBuffer.length;
+    const diffSize = originalSize - optimizedSize;
+    const diffPercent = round10(100 * (diffSize / originalSize), -1);
 
-    const before = file.contents.length;
-    const after = buffer.length;
-    const diff = before - after;
-    const diffPercent = round10(100 * (diff / before), -1);
-
-    if (diff === 0) {
+    if (diffSize === 0) {
       log('gulp-image: Optimization is skipped ' + colors.blue(file.relative));
-    } else if (diff < 0) {
+    } else if (diffSize < 0) {
       log(
         colors.green('- ') + file.relative + colors.gray(' ->') +
-        colors.gray(' Cannot improve upon ') + colors.cyan(filesize(before))
+        colors.gray(' Cannot improve upon ') + colors.cyan(filesize(originalSize))
       );
     } else {
-      file.contents = buffer;
+      file.contents = optimizedBuffer;
 
       log(
         colors.green('✔ ') + file.relative + colors.gray(' ->') +
-        colors.gray(' before=') + colors.yellow(filesize(before)) +
-        colors.gray(' after=') + colors.cyan(filesize(after)) +
-        colors.gray(' reduced=') + colors.green(filesize(diff) + '(' + diffPercent + '%)')
+        colors.gray(' before=') + colors.yellow(filesize(originalSize)) +
+        colors.gray(' after=') + colors.cyan(filesize(optimizedSize)) +
+        colors.gray(' reduced=') + colors.green(filesize(diffSize) + '(' + diffPercent + '%)')
       );
     }
 
