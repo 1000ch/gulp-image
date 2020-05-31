@@ -1,5 +1,6 @@
 language: node_js
 node_js:
+  - '14'
   - '12'
   - '10'
 notifications:
@@ -9,5 +10,6 @@ branches:
     - master
 addons:
   apt:
-    packages: nasm
+    packages:
+      - nasm
 before_install: if [[ $TRAVIS_OS_NAME == osx ]]; then brew update && brew install nasm; fi;
