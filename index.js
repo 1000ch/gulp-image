@@ -1,6 +1,5 @@
 'use strict';
 
-const { extname } = require('path');
 const through2 = require('through2-concurrent');
 const PluginError = require('plugin-error');
 const colors = require('ansi-colors');
@@ -8,9 +7,6 @@ const fancyLog = require('fancy-log');
 const filesize = require('filesize');
 const { round10 } = require('round10');
 const optimize = require('./optimize');
-
-const SUPPORTED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.svg'];
-const NOOP = () => {};
 
 module.exports = options => through2.obj({
   maxConcurrency: options ? options.concurrent : null
@@ -23,13 +19,7 @@ module.exports = options => through2.obj({
     return callback(new Error('gulp-image: Streaming is not supported'));
   }
 
-  const log = options && options.quiet ? NOOP : fancyLog;
-  const extension = extname(file.path).toLowerCase();
-
-  if (!SUPPORTED_EXTENSIONS.includes(extension)) {
-    log('gulp-image: Skipping unsupported image ' + colors.blue(file.relative));
-    return callback(null, file);
-  }
+  const log = options && options.quiet ? () => {} : fancyLog;
 
   optimize(file.contents, Object.assign({
     pngquant       : true,
@@ -45,7 +35,9 @@ module.exports = options => through2.obj({
     const diff = before - after;
     const diffPercent = round10(100 * (diff / before), -1);
 
-    if (diff <= 0) {
+    if (diff === 0) {
+      log('gulp-image: Optimization is skipped ' + colors.blue(file.relative));
+    } else if (diff < 0) {
       log(
         colors.green('- ') + file.relative + colors.gray(' ->') +
         colors.gray(' Cannot improve upon ') + colors.cyan(filesize(before))
