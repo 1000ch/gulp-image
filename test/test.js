@@ -106,8 +106,7 @@ test.cb('should minify JPG images with jpegRecompress', t => {
 
   const stream = image({
     jpegRecompress : true,
-    mozjpeg        : false,
-    guetzli        : false
+    mozjpeg        : false
   });
 
   stream.on('data', file => {
@@ -130,32 +129,7 @@ test.cb('should minify JPG images with mozjpeg', t => {
 
   const stream = image({
     jpegRecompress : false,
-    mozjpeg        : true,
-    guetzli        : false
-  });
-
-  stream.on('data', file => {
-    const before = fs.statSync('test/fixtures/test.jpg').size;
-    const after  = file.contents.length;
-    t.true(after < before);
-    t.end();
-  });
-
-  stream.write(new Vinyl({
-    path     : `${__dirname}/fixtures/test.jpg`,
-    contents : fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
-  }));
-
-  stream.end();
-});
-
-test.cb('should minify JPG images with guetzli', t => {
-  t.plan(1);
-
-  const stream = image({
-    jpegRecompress : false,
-    mozjpeg        : false,
-    guetzli        : true
+    mozjpeg        : true
   });
 
   stream.on('data', file => {
@@ -178,8 +152,7 @@ test.cb('should not minify JPG images when related options are disabled', t => {
 
   const stream = image({
     jpegRecompress : false,
-    mozjpeg        : false,
-    guetzli        : false
+    mozjpeg        : false
   });
 
   stream.on('data', file => {

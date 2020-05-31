@@ -57,16 +57,6 @@ function mozjpeg(buffer, args) {
   });
 }
 
-function guetzli(buffer, args) {
-  const params = Array.isArray(args) ? args : ['--quality', 85];
-
-  return execBuffer({
-    input : buffer,
-    bin   : require('guetzli'),
-    args  : [...params, execBuffer.input, execBuffer.output]
-  });
-}
-
 function gifsicle(buffer, args) {
   const params = Array.isArray(args) ? args : ['--optimize'];
 
@@ -91,8 +81,7 @@ module.exports = function(buffer, options) {
   if (isJpg(buffer)) {
     return Promise.resolve(buffer)
       .then(buffer => options.jpegRecompress ? jpegRecompress(buffer, options.jpegRecompress) : buffer)
-      .then(buffer => options.mozjpeg ? mozjpeg(buffer, options.mozjpeg) : buffer)
-      .then(buffer => options.guetzli ? guetzli(buffer, options.guetzli) : buffer);
+      .then(buffer => options.mozjpeg ? mozjpeg(buffer, options.mozjpeg) : buffer);
   } else if (isPng(buffer)) {
     return Promise.resolve(buffer)
       .then(buffer => options.pngquant ? pngquant(buffer, options.pngquant) : buffer)
