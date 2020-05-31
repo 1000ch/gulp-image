@@ -5,12 +5,12 @@ const PluginError = require('plugin-error');
 const colors = require('ansi-colors');
 const fancyLog = require('fancy-log');
 const filesize = require('filesize');
-const { round10 } = require('round10');
+const {round10} = require('round10');
 const optimize = require('./optimize');
 
 module.exports = options => through2.obj({
   maxConcurrency: options ? options.concurrent : null
-}, (file, enc, callback) => {
+}, async (file, enc, callback) => {
   if (file.isNull()) {
     return callback(null, file);
   }
@@ -21,15 +21,18 @@ module.exports = options => through2.obj({
 
   const log = options && options.quiet ? () => {} : fancyLog;
 
-  optimize(file.contents, Object.assign({
-    pngquant       : true,
-    optipng        : false,
-    zopflipng      : true,
-    jpegRecompress : false,
-    mozjpeg        : true,
-    gifsicle       : true,
-    svgo           : true
-  }, options)).then(buffer => {
+  try {
+    const buffer = await optimize(file.contents, {
+      pngquant: true,
+      optipng: false,
+      zopflipng: true,
+      jpegRecompress: false,
+      mozjpeg: true,
+      gifsicle: true,
+      svgo: true,
+      ...options
+    });
+
     const before = file.contents.length;
     const after = buffer.length;
     const diff = before - after;
@@ -54,7 +57,7 @@ module.exports = options => through2.obj({
     }
 
     callback(null, file);
-  }).catch(error => {
+  } catch (error) {
     callback(new PluginError('gulp-image', error));
-  });
+  }
 });

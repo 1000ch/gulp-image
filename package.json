@@ -13,7 +13,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "test": "ava"
+    "test": "xo && ava"
   },
   "bugs": {
     "url": "https://github.com/1000ch/gulp-image/issues"
@@ -40,7 +40,11 @@
   },
   "devDependencies": {
     "ava": "^3.3.0",
-    "vinyl": "^2.2.0"
+    "vinyl": "^2.2.0",
+    "xo": "^0.30.0"
+  },
+  "xo": {
+    "space": 2
   },
   "keywords": [
     "compress",
