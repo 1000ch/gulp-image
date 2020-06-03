@@ -32,16 +32,16 @@
     "mozjpeg": "^7.0.0",
     "optipng-bin": "^7.0.0",
     "plugin-error": "^1.0.1",
-    "pngquant-bin": "^5.0.2",
+    "pngquant-bin": "^6.0.0",
     "round10": "^1.0.3",
     "svgo": "^1.3.2",
     "through2-concurrent": "^2.0.0",
     "zopflipng-bin": "^6.0.0"
   },
   "devDependencies": {
-    "ava": "^3.3.0",
+    "ava": "^3.8.0",
     "vinyl": "^2.2.0",
-    "xo": "^0.30.0"
+    "xo": "^0.32.0"
   },
   "xo": {
     "space": 2
