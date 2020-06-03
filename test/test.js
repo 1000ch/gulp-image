@@ -1,9 +1,15 @@
 'use strict';
-
-const test = require('ava');
 const fs = require('fs');
+const path = require('path');
+const test = require('ava');
 const Vinyl = require('vinyl');
 const image = require('..');
+
+const testGif = path.resolve(__dirname, './fixtures/test.gif');
+const testJpg = path.resolve(__dirname, './fixtures/test.jpg');
+const testPng = path.resolve(__dirname, './fixtures/test.png');
+const testSvg = path.resolve(__dirname, './fixtures/test.svg');
+const testBmp = path.resolve(__dirname, './fixtures/test.bmp');
 
 test.cb('should minify PNG images with pngquant', t => {
   t.plan(1);
@@ -15,15 +21,15 @@ test.cb('should minify PNG images with pngquant', t => {
   });
 
   stream.on('data', file => {
-    const before = fs.statSync('test/fixtures/test.png').size;
+    const before = fs.statSync(testPng).size;
     const after = file.contents.length;
     t.true(after < before);
     t.end();
   });
 
   stream.write(new Vinyl({
-    path: `${__dirname}/fixtures/test.png`,
-    contents: fs.readFileSync(`${__dirname}/fixtures/test.png`)
+    path: testPng,
+    contents: fs.readFileSync(testPng)
   }));
 
   stream.end();
@@ -39,15 +45,15 @@ test.cb('should minify PNG images with optipng', t => {
   });
 
   stream.on('data', file => {
-    const before = fs.statSync('test/fixtures/test.png').size;
+    const before = fs.statSync(testPng).size;
     const after = file.contents.length;
     t.true(after < before);
     t.end();
   });
 
   stream.write(new Vinyl({
-    path: `${__dirname}/fixtures/test.png`,
-    contents: fs.readFileSync(`${__dirname}/fixtures/test.png`)
+    path: testPng,
+    contents: fs.readFileSync(testPng)
   }));
 
   stream.end();
@@ -63,15 +69,15 @@ test.cb('should minify PNG images with zopflipng', t => {
   });
 
   stream.on('data', file => {
-    const before = fs.statSync('test/fixtures/test.png').size;
+    const before = fs.statSync(testPng).size;
     const after = file.contents.length;
     t.true(after < before);
     t.end();
   });
 
   stream.write(new Vinyl({
-    path: `${__dirname}/fixtures/test.png`,
-    contents: fs.readFileSync(`${__dirname}/fixtures/test.png`)
+    path: testPng,
+    contents: fs.readFileSync(testPng)
   }));
 
   stream.end();
@@ -87,15 +93,15 @@ test.cb('should not minify PNG images when related options are disabled', t => {
   });
 
   stream.on('data', file => {
-    const before = fs.statSync('test/fixtures/test.png').size;
+    const before = fs.statSync(testPng).size;
     const after = file.contents.length;
     t.true(after === before);
     t.end();
   });
 
   stream.write(new Vinyl({
-    path: `${__dirname}/fixtures/test.png`,
-    contents: fs.readFileSync(`${__dirname}/fixtures/test.png`)
+    path: testPng,
+    contents: fs.readFileSync(testPng)
   }));
 
   stream.end();
@@ -110,15 +116,15 @@ test.cb('should minify JPG images with jpegRecompress', t => {
   });
 
   stream.on('data', file => {
-    const before = fs.statSync('test/fixtures/test.jpg').size;
+    const before = fs.statSync(testJpg).size;
     const after = file.contents.length;
     t.true(after < before);
     t.end();
   });
 
   stream.write(new Vinyl({
-    path: `${__dirname}/fixtures/test.jpg`,
-    contents: fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
+    path: testJpg,
+    contents: fs.readFileSync(testJpg)
   }));
 
   stream.end();
@@ -133,15 +139,15 @@ test.cb('should minify JPG images with mozjpeg', t => {
   });
 
   stream.on('data', file => {
-    const before = fs.statSync('test/fixtures/test.jpg').size;
+    const before = fs.statSync(testJpg).size;
     const after = file.contents.length;
     t.true(after < before);
     t.end();
   });
 
   stream.write(new Vinyl({
-    path: `${__dirname}/fixtures/test.jpg`,
-    contents: fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
+    path: testJpg,
+    contents: fs.readFileSync(testJpg)
   }));
 
   stream.end();
@@ -156,15 +162,15 @@ test.cb('should not minify JPG images when related options are disabled', t => {
   });
 
   stream.on('data', file => {
-    const before = fs.statSync('test/fixtures/test.jpg').size;
+    const before = fs.statSync(testJpg).size;
     const after = file.contents.length;
     t.true(after === before);
     t.end();
   });
 
   stream.write(new Vinyl({
-    path: `${__dirname}/fixtures/test.jpg`,
-    contents: fs.readFileSync(`${__dirname}/fixtures/test.jpg`)
+    path: testJpg,
+    contents: fs.readFileSync(testJpg)
   }));
 
   stream.end();
@@ -176,15 +182,15 @@ test.cb('should minify GIF images', t => {
   const stream = image();
 
   stream.on('data', file => {
-    const before = fs.statSync('test/fixtures/test.gif').size;
+    const before = fs.statSync(testGif).size;
     const after = file.contents.length;
     t.true(after < before);
     t.end();
   });
 
   stream.write(new Vinyl({
-    path: `${__dirname}/fixtures/test.gif`,
-    contents: fs.readFileSync(`${__dirname}/fixtures/test.gif`)
+    path: testGif,
+    contents: fs.readFileSync(testGif)
   }));
 
   stream.end();
@@ -198,15 +204,15 @@ test.cb('should not minify GIF images when related options are disabled', t => {
   });
 
   stream.on('data', file => {
-    const before = fs.statSync('test/fixtures/test.gif').size;
+    const before = fs.statSync(testGif).size;
     const after = file.contents.length;
     t.true(after === before);
     t.end();
   });
 
   stream.write(new Vinyl({
-    path: `${__dirname}/fixtures/test.gif`,
-    contents: fs.readFileSync(`${__dirname}/fixtures/test.gif`)
+    path: testGif,
+    contents: fs.readFileSync(testGif)
   }));
 
   stream.end();
@@ -218,15 +224,15 @@ test.cb('should minify SVG images', t => {
   const stream = image();
 
   stream.on('data', file => {
-    const before = fs.statSync('test/fixtures/test.svg').size;
+    const before = fs.statSync(testSvg).size;
     const after = file.contents.length;
     t.true(after < before);
     t.end();
   });
 
   stream.write(new Vinyl({
-    path: `${__dirname}/fixtures/test.svg`,
-    contents: fs.readFileSync(`${__dirname}/fixtures/test.svg`)
+    path: testSvg,
+    contents: fs.readFileSync(testSvg)
   }));
 });
 
@@ -238,15 +244,15 @@ test.cb('should not minify SVG images when related options are disabled', t => {
   });
 
   stream.on('data', file => {
-    const before = fs.statSync('test/fixtures/test.svg').size;
+    const before = fs.statSync(testSvg).size;
     const after = file.contents.length;
     t.true(after === before);
     t.end();
   });
 
   stream.write(new Vinyl({
-    path: `${__dirname}/fixtures/test.svg`,
-    contents: fs.readFileSync(`${__dirname}/fixtures/test.svg`)
+    path: testSvg,
+    contents: fs.readFileSync(testSvg)
   }));
 });
 
@@ -261,7 +267,7 @@ test.cb('should skip unsupported images', t => {
   });
 
   stream.write(new Vinyl({
-    path: `${__dirname}fixtures/test.bmp`
+    path: testBmp
   }));
 
   stream.end();
