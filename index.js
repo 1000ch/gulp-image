@@ -28,14 +28,14 @@ module.exports = (options = {}) => through2.obj({
       ...options
     });
 
-    const originalSize = originalBuffer.length;
-    const optimizedSize = optimizedBuffer.length;
+    const originalBytes = originalBuffer.length;
+    const optimizedBytes = optimizedBuffer.length;
 
     if (!options.quiet) {
-      log(file.relative, originalSize, optimizedSize);
+      log(file.relative, originalBytes, optimizedBytes);
     }
 
-    if (originalSize - optimizedSize > 0) {
+    if (originalBytes - optimizedBytes > 0) {
       file.contents = optimizedBuffer;
     }
 
