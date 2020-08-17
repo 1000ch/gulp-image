@@ -1,11 +1,6 @@
-# [gulp-image](https://npmjs.org/package/gulp-image)
+# [gulp-image](https://npmjs.org/package/gulp-image) [![Build Status](https://travis-ci.org/1000ch/gulp-image.svg?branch=master)](https://travis-ci.org/1000ch/gulp-image)
 
 Optimize PNG, JPEG, GIF, SVG images with gulp task.
-
-[![Build Status](https://travis-ci.org/1000ch/gulp-image.svg?branch=master)](https://travis-ci.org/1000ch/gulp-image)
-[![NPM version](https://badge.fury.io/js/gulp-image.svg)](http://badge.fury.io/js/gulp-image)
-[![Dependency Status](https://david-dm.org/1000ch/gulp-image.svg)](https://david-dm.org/1000ch/gulp-image)
-[![devDependency Status](https://david-dm.org/1000ch/gulp-image/dev-status.svg)](https://david-dm.org/1000ch/gulp-image?type=dev)
 
 ![gulp-image result](https://raw.github.com/1000ch/gulp-image/master/screenshot/terminal.png)
 
