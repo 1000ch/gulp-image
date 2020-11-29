@@ -4,13 +4,13 @@
   "description": "Optimize PNG, JPG, GIF, SVG images with gulp task.",
   "repository": "1000ch/gulp-image",
   "author": {
-    "name": "1000ch",
+    "name": "Shogo Sensui",
     "email": "shogosensui@gmail.com",
     "web": "https://github.com/1000ch"
   },
   "license": "MIT",
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "scripts": {
     "test": "xo && ava"
