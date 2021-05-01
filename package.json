@@ -9,8 +9,9 @@
     "web": "https://github.com/1000ch"
   },
   "license": "MIT",
+  "type": "module",
   "engines": {
-    "node": ">=12"
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
   "scripts": {
     "test": "xo && ava"
@@ -25,7 +26,7 @@
     "gifsicle": "^5.2.0",
     "is-gif": "^3.0.0",
     "is-jpg": "^2.0.0",
-    "is-png": "^2.0.0",
+    "is-png": "^3.0.0",
     "is-svg": "^4.3.1",
     "jpeg-recompress-bin": "^5.1.1",
     "mozjpeg": "^7.0.0",
@@ -39,8 +40,8 @@
     "zopflipng-bin": "^6.0.1"
   },
   "devDependencies": {
-    "ava": "^3.10.1",
-    "vinyl": "^2.2.0",
+    "ava": "^3.15.0",
+    "vinyl": "^2.2.1",
     "xo": "^0.39.1"
   },
   "xo": {

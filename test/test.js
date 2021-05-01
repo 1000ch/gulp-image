@@ -1,15 +1,13 @@
-'use strict';
-const fs = require('fs');
-const path = require('path');
-const test = require('ava');
-const Vinyl = require('vinyl');
-const image = require('..');
+import fs from 'fs';
+import test from 'ava';
+import Vinyl from 'vinyl';
+import image from '../index.js';
 
-const testGif = path.resolve(__dirname, './fixtures/test.gif');
-const testJpg = path.resolve(__dirname, './fixtures/test.jpg');
-const testPng = path.resolve(__dirname, './fixtures/test.png');
-const testSvg = path.resolve(__dirname, './fixtures/test.svg');
-const testBmp = path.resolve(__dirname, './fixtures/test.bmp');
+const testGif = new URL('./fixtures/test.gif', import.meta.url).pathname;
+const testJpg = new URL('./fixtures/test.jpg', import.meta.url).pathname;
+const testPng = new URL('./fixtures/test.png', import.meta.url).pathname;
+const testSvg = new URL('./fixtures/test.svg', import.meta.url).pathname;
+const testBmp = new URL('./fixtures/test.bmp', import.meta.url).pathname;
 
 test.cb('should minify PNG images with pngquant', t => {
   const stream = image({
