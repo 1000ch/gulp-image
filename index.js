@@ -1,10 +1,9 @@
-'use strict';
-const through2 = require('through2-concurrent');
-const PluginError = require('plugin-error');
-const optimize = require('./lib/optimize');
-const log = require('./lib/log');
+import through2 from 'through2-concurrent';
+import PluginError from 'plugin-error';
+import optimize from './lib/optimize.js';
+import log from './lib/log.js';
 
-module.exports = (options = {}) => through2.obj({
+const image = (options = {}) => through2.obj({
   maxConcurrency: options.concurrent
 }, async (file, enc, callback) => {
   if (file.isNull()) {
@@ -44,3 +43,5 @@ module.exports = (options = {}) => through2.obj({
     callback(new PluginError('gulp-image', error));
   }
 });
+
+export default image;
