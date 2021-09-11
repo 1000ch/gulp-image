@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import test from 'ava';
 import Vinyl from 'vinyl';
 import image from '../index.js';
@@ -13,7 +13,7 @@ test.cb('should minify PNG images with pngquant', t => {
   const stream = image({
     pngquant: true,
     optipng: false,
-    zopflipng: false
+    zopflipng: false,
   });
 
   stream.on('data', file => {
@@ -26,7 +26,7 @@ test.cb('should minify PNG images with pngquant', t => {
 
   stream.end(new Vinyl({
     path: testPng,
-    contents: fs.readFileSync(testPng)
+    contents: fs.readFileSync(testPng),
   }));
 });
 
@@ -34,7 +34,7 @@ test.cb('should minify PNG images with optipng', t => {
   const stream = image({
     pngquant: false,
     optipng: true,
-    zopflipng: false
+    zopflipng: false,
   });
 
   stream.on('data', file => {
@@ -47,7 +47,7 @@ test.cb('should minify PNG images with optipng', t => {
 
   stream.end(new Vinyl({
     path: testPng,
-    contents: fs.readFileSync(testPng)
+    contents: fs.readFileSync(testPng),
   }));
 });
 
@@ -55,7 +55,7 @@ test.cb('should minify PNG images with zopflipng', t => {
   const stream = image({
     pngquant: false,
     optipng: false,
-    zopflipng: true
+    zopflipng: true,
   });
 
   stream.on('data', file => {
@@ -68,7 +68,7 @@ test.cb('should minify PNG images with zopflipng', t => {
 
   stream.end(new Vinyl({
     path: testPng,
-    contents: fs.readFileSync(testPng)
+    contents: fs.readFileSync(testPng),
   }));
 });
 
@@ -76,7 +76,7 @@ test.cb('should not minify PNG images when related options are disabled', t => {
   const stream = image({
     pngquant: false,
     optipng: false,
-    zopflipng: false
+    zopflipng: false,
   });
 
   stream.on('data', file => {
@@ -89,14 +89,14 @@ test.cb('should not minify PNG images when related options are disabled', t => {
 
   stream.end(new Vinyl({
     path: testPng,
-    contents: fs.readFileSync(testPng)
+    contents: fs.readFileSync(testPng),
   }));
 });
 
 test.cb('should minify JPG images with jpegRecompress', t => {
   const stream = image({
     jpegRecompress: true,
-    mozjpeg: false
+    mozjpeg: false,
   });
 
   stream.on('data', file => {
@@ -109,14 +109,14 @@ test.cb('should minify JPG images with jpegRecompress', t => {
 
   stream.end(new Vinyl({
     path: testJpg,
-    contents: fs.readFileSync(testJpg)
+    contents: fs.readFileSync(testJpg),
   }));
 });
 
 test.cb('should minify JPG images with mozjpeg', t => {
   const stream = image({
     jpegRecompress: false,
-    mozjpeg: true
+    mozjpeg: true,
   });
 
   stream.on('data', file => {
@@ -130,14 +130,14 @@ test.cb('should minify JPG images with mozjpeg', t => {
 
   stream.end(new Vinyl({
     path: testJpg,
-    contents: fs.readFileSync(testJpg)
+    contents: fs.readFileSync(testJpg),
   }));
 });
 
 test.cb('should not minify JPG images when related options are disabled', t => {
   const stream = image({
     jpegRecompress: false,
-    mozjpeg: false
+    mozjpeg: false,
   });
 
   stream.on('data', file => {
@@ -150,7 +150,7 @@ test.cb('should not minify JPG images when related options are disabled', t => {
 
   stream.end(new Vinyl({
     path: testJpg,
-    contents: fs.readFileSync(testJpg)
+    contents: fs.readFileSync(testJpg),
   }));
 });
 
@@ -167,13 +167,13 @@ test.cb('should minify GIF images', t => {
 
   stream.end(new Vinyl({
     path: testGif,
-    contents: fs.readFileSync(testGif)
+    contents: fs.readFileSync(testGif),
   }));
 });
 
 test.cb('should not minify GIF images when related options are disabled', t => {
   const stream = image({
-    gifsicle: false
+    gifsicle: false,
   });
 
   stream.on('data', file => {
@@ -186,7 +186,7 @@ test.cb('should not minify GIF images when related options are disabled', t => {
 
   stream.end(new Vinyl({
     path: testGif,
-    contents: fs.readFileSync(testGif)
+    contents: fs.readFileSync(testGif),
   }));
 });
 
@@ -203,13 +203,13 @@ test.cb('should minify SVG images', t => {
 
   stream.end(new Vinyl({
     path: testSvg,
-    contents: fs.readFileSync(testSvg)
+    contents: fs.readFileSync(testSvg),
   }));
 });
 
 test.cb('should not minify SVG images when related options are disabled', t => {
   const stream = image({
-    svgo: false
+    svgo: false,
   });
 
   stream.on('data', file => {
@@ -222,7 +222,7 @@ test.cb('should not minify SVG images when related options are disabled', t => {
 
   stream.end(new Vinyl({
     path: testSvg,
-    contents: fs.readFileSync(testSvg)
+    contents: fs.readFileSync(testSvg),
   }));
 });
 
@@ -236,6 +236,6 @@ test.cb('should skip unsupported images', t => {
   stream.on('end', () => t.end());
 
   stream.end(new Vinyl({
-    path: testBmp
+    path: testBmp,
   }));
 });

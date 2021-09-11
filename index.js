@@ -4,7 +4,7 @@ import optimize from './lib/optimize.js';
 import log from './lib/log.js';
 
 const image = (options = {}) => through2.obj({
-  maxConcurrency: options.concurrent
+  maxConcurrency: options.concurrent,
 }, async (file, enc, callback) => {
   if (file.isNull()) {
     return callback(null, file);
@@ -24,7 +24,7 @@ const image = (options = {}) => through2.obj({
       mozjpeg: true,
       gifsicle: true,
       svgo: true,
-      ...options
+      ...options,
     });
 
     const originalBytes = originalBuffer.length;
