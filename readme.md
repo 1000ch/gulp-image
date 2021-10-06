@@ -1,4 +1,4 @@
-# gulp-image ![GitHub Actions Status](https://github.com/1000ch/gulp-image/workflows/test/badge.svg?branch=master)
+# gulp-image ![GitHub Actions Status](https://github.com/1000ch/gulp-image/workflows/test/badge.svg)
 
 Optimize PNG, JPEG, GIF, SVG images with gulp task.
 
