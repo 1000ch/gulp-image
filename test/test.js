@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import test from 'ava';
 import Vinyl from 'vinyl';
+import pEvent from 'p-event';
 import image from '../index.js';
 
 const testGif = new URL('./fixtures/test.gif', import.meta.url).pathname;
@@ -9,7 +10,7 @@ const testPng = new URL('./fixtures/test.png', import.meta.url).pathname;
 const testSvg = new URL('./fixtures/test.svg', import.meta.url).pathname;
 const testBmp = new URL('./fixtures/test.bmp', import.meta.url).pathname;
 
-test.cb('should minify PNG images with pngquant', t => {
+test('should minify PNG images with pngquant', async t => {
   const stream = image({
     pngquant: true,
     optipng: false,
@@ -22,15 +23,15 @@ test.cb('should minify PNG images with pngquant', t => {
     t.true(after < before);
   });
 
-  stream.on('end', () => t.end());
-
   stream.end(new Vinyl({
     path: testPng,
     contents: fs.readFileSync(testPng),
   }));
+
+  await pEvent(stream, 'end');
 });
 
-test.cb('should minify PNG images with optipng', t => {
+test('should minify PNG images with optipng', async t => {
   const stream = image({
     pngquant: false,
     optipng: true,
@@ -43,15 +44,15 @@ test.cb('should minify PNG images with optipng', t => {
     t.true(after < before);
   });
 
-  stream.on('end', () => t.end());
-
   stream.end(new Vinyl({
     path: testPng,
     contents: fs.readFileSync(testPng),
   }));
+
+  await pEvent(stream, 'end');
 });
 
-test.cb('should minify PNG images with zopflipng', t => {
+test('should minify PNG images with zopflipng', async t => {
   const stream = image({
     pngquant: false,
     optipng: false,
@@ -64,15 +65,15 @@ test.cb('should minify PNG images with zopflipng', t => {
     t.true(after < before);
   });
 
-  stream.on('end', () => t.end());
-
   stream.end(new Vinyl({
     path: testPng,
     contents: fs.readFileSync(testPng),
   }));
+
+  await pEvent(stream, 'end');
 });
 
-test.cb('should not minify PNG images when related options are disabled', t => {
+test('should not minify PNG images when related options are disabled', async t => {
   const stream = image({
     pngquant: false,
     optipng: false,
@@ -85,15 +86,15 @@ test.cb('should not minify PNG images when related options are disabled', t => {
     t.true(after === before);
   });
 
-  stream.on('end', () => t.end());
-
   stream.end(new Vinyl({
     path: testPng,
     contents: fs.readFileSync(testPng),
   }));
+
+  await pEvent(stream, 'end');
 });
 
-test.cb('should minify JPG images with jpegRecompress', t => {
+test('should minify JPG images with jpegRecompress', async t => {
   const stream = image({
     jpegRecompress: true,
     mozjpeg: false,
@@ -105,15 +106,15 @@ test.cb('should minify JPG images with jpegRecompress', t => {
     t.true(after < before);
   });
 
-  stream.on('end', () => t.end());
-
   stream.end(new Vinyl({
     path: testJpg,
     contents: fs.readFileSync(testJpg),
   }));
+
+  await pEvent(stream, 'end');
 });
 
-test.cb('should minify JPG images with mozjpeg', t => {
+test('should minify JPG images with mozjpeg', async t => {
   const stream = image({
     jpegRecompress: false,
     mozjpeg: true,
@@ -123,18 +124,17 @@ test.cb('should minify JPG images with mozjpeg', t => {
     const before = fs.statSync(testJpg).size;
     const after = file.contents.length;
     t.true(after < before);
-    t.end();
   });
-
-  stream.on('end', () => t.end());
 
   stream.end(new Vinyl({
     path: testJpg,
     contents: fs.readFileSync(testJpg),
   }));
+
+  await pEvent(stream, 'end');
 });
 
-test.cb('should not minify JPG images when related options are disabled', t => {
+test('should not minify JPG images when related options are disabled', async t => {
   const stream = image({
     jpegRecompress: false,
     mozjpeg: false,
@@ -146,15 +146,15 @@ test.cb('should not minify JPG images when related options are disabled', t => {
     t.true(after === before);
   });
 
-  stream.on('end', () => t.end());
-
   stream.end(new Vinyl({
     path: testJpg,
     contents: fs.readFileSync(testJpg),
   }));
+
+  await pEvent(stream, 'end');
 });
 
-test.cb('should minify GIF images', t => {
+test('should minify GIF images', async t => {
   const stream = image();
 
   stream.on('data', file => {
@@ -163,15 +163,15 @@ test.cb('should minify GIF images', t => {
     t.true(after < before);
   });
 
-  stream.on('end', () => t.end());
-
   stream.end(new Vinyl({
     path: testGif,
     contents: fs.readFileSync(testGif),
   }));
+
+  await pEvent(stream, 'end');
 });
 
-test.cb('should not minify GIF images when related options are disabled', t => {
+test('should not minify GIF images when related options are disabled', async t => {
   const stream = image({
     gifsicle: false,
   });
@@ -182,15 +182,15 @@ test.cb('should not minify GIF images when related options are disabled', t => {
     t.true(after === before);
   });
 
-  stream.on('end', () => t.end());
-
   stream.end(new Vinyl({
     path: testGif,
     contents: fs.readFileSync(testGif),
   }));
+
+  await pEvent(stream, 'end');
 });
 
-test.cb('should minify SVG images', t => {
+test('should minify SVG images', async t => {
   const stream = image();
 
   stream.on('data', file => {
@@ -199,15 +199,15 @@ test.cb('should minify SVG images', t => {
     t.true(after < before);
   });
 
-  stream.on('end', () => t.end());
-
   stream.end(new Vinyl({
     path: testSvg,
     contents: fs.readFileSync(testSvg),
   }));
+
+  await pEvent(stream, 'end');
 });
 
-test.cb('should not minify SVG images when related options are disabled', t => {
+test('should not minify SVG images when related options are disabled', async t => {
   const stream = image({
     svgo: false,
   });
@@ -218,24 +218,24 @@ test.cb('should not minify SVG images when related options are disabled', t => {
     t.true(after === before);
   });
 
-  stream.on('end', () => t.end());
-
   stream.end(new Vinyl({
     path: testSvg,
     contents: fs.readFileSync(testSvg),
   }));
+
+  await pEvent(stream, 'end');
 });
 
-test.cb('should skip unsupported images', t => {
+test('should skip unsupported images', async t => {
   const stream = image();
 
   stream.on('data', file => {
     t.is(file.contents, null);
   });
 
-  stream.on('end', () => t.end());
-
   stream.end(new Vinyl({
     path: testBmp,
   }));
+
+  await pEvent(stream, 'end');
 });
