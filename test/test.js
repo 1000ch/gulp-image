@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import test from 'ava';
 import Vinyl from 'vinyl';
-import pEvent from 'p-event';
+import {pEvent} from 'p-event';
 import image from '../index.js';
 
 const testGif = new URL('./fixtures/test.gif', import.meta.url).pathname;

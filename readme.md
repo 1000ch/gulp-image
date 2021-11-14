@@ -1,4 +1,4 @@
-# gulp-image ![GitHub Actions Status](https://github.com/1000ch/gulp-image/workflows/test/badge.svg)
+# gulp-image ![GitHub Actions Status](https://github.com/1000ch/gulp-image/workflows/test/badge.svg?branch=main)
 
 Optimize PNG, JPEG, GIF, SVG images with gulp task.
 
@@ -21,8 +21,8 @@ $ npm install --save-dev gulp-image
 This is an example of `gulpfile.js`.
 
 ```javascript
-const gulp = require('gulp');
-const image = require('gulp-image');
+import gulp from 'gulp';
+import image from 'gulp-image';
 
 gulp.task('image', function () {
   gulp.src('./fixtures/*')
