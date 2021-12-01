@@ -24,7 +24,7 @@ This is an example of `gulpfile.js`.
 import gulp from 'gulp';
 import image from 'gulp-image';
 
-gulp.task('image', function () {
+gulp.task('image', () => {
   gulp.src('./fixtures/*')
     .pipe(image())
     .pipe(gulp.dest('./dest'));
@@ -67,7 +67,7 @@ gulp.task('image', () => {
       jpegRecompress: ['--strip', '--quality', 'medium', '--min', 40, '--max', 80],
       mozjpeg: ['-optimize', '-progressive'],
       gifsicle: ['--optimize'],
-      svgo: ['--enable', 'cleanupIDs', '--disable', 'convertColors']
+      svgo: {} // svgo accepts options defined on https://github.com/svg/svgo#configuration
     }))
     .pipe(gulp.dest('./dest'));
 });
