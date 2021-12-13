@@ -12,9 +12,7 @@ $ npm install --save-dev gulp-image
 
 ### External Dendencies
 
-- `brew install libjpeg libpng` on macOS
-- `apt-get install -y libjpeg libpng` on Ubuntu
-- `npm install -g windows-build-tools` on Windows
+This package includes multiple image-related libraries so that you might be required to install several external dependencies like [`libjpeg`](http://libjpeg.sourceforge.net/) or [`libpng`](http://www.libpng.org/pub/png/libpng.html). Please install them as needed with [Homebrew](https://brew.sh/) on macOS or `apt` (Advanced Package Tool) on Linux.
 
 ## Usage
 
