@@ -33,7 +33,7 @@
     "is-jpg": "^3.0.0",
     "is-png": "^3.0.1",
     "is-svg": "^4.3.2",
-    "jpeg-recompress-bin": "^6.0.1",
+    "jpeg-recompress-bin": "^7.0.0",
     "mozjpeg": "^8.0.0",
     "optipng-bin": "^8.1.0",
     "plugin-error": "^1.0.1",
